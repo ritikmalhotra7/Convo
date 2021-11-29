@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "781090706711",
+    "project_id": "convo-8ee5b",
+    "storage_bucket": "convo-8ee5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781090706711:android:f3ba08f3860abafd085352",
+        "android_client_info": {
+          "package_name": "com.complete.convo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781090706711-5bdortdd2b55hr1ia0njhc43unsvd99g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.complete.convo",
+            "certificate_hash": "e5f2717957e79a6f1632f7c220cfb0813a9959ac"
+          }
+        },
+        {
+          "client_id": "781090706711-oaj1q47ku8264kaod2i2cjpd939i3jme.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGdCXb-5ILodx9weBhzVIcMzP5QDsmg1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781090706711-oaj1q47ku8264kaod2i2cjpd939i3jme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
