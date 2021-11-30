@@ -1,4 +1,4 @@
-package com.complete.convo
+package com.complete.convo.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
