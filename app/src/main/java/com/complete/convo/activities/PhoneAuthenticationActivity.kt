@@ -55,13 +55,14 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             binding.otp.isEnabled = true
             binding.loginBtn.isEnabled = false
             binding.phoneNumber.isEnabled = false
+            binding.name.isEnabled = false
             login()
         }
         binding.verify.setOnClickListener{
             val otp=binding.otp.text.toString().trim()
             if(otp.isNotEmpty()){
                 val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
-                    storedVerificationId.toString(), otp)
+                    storedVerificationId, otp)
                 signInWithPhoneAuthCredential(credential)
             }else{
                 Toast.makeText(this,"Enter OTP",Toast.LENGTH_SHORT).show()
@@ -81,6 +82,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 binding.otp.isEnabled = false
                 binding.loginBtn.isEnabled = true
                 binding.phoneNumber.isEnabled = true
+                binding.name.isEnabled = true
                 Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()
                 Log.d("taget",e.toString())
             }
@@ -93,16 +95,15 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
-                val mobileNumber = binding.phoneNumber.text.toString()
             }
         }
 
     }
-    private fun addUserToDB(name: String, phno :Int, uid: String?) {
+    private fun addUserToDB(name: String, phno :String, uid: String?) {
 
-        db = FirebaseDatabase.getInstance("https://basic-chat-application-4d671-default-rtdb.asia-southeast1.firebasedatabase.app")
+        db = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference()
-        db.child("user").child(uid!!).setValue(User(name,phno,uid))
+        db.child("user").child(uid!!).setValue(User(name,phno,uid,""))
 
     }
 
@@ -110,8 +111,8 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val name = findViewById<EditText>(R.id.name).toString()
-                    val phno = intent.getStringArrayExtra("phone_number") as Int
+                    val name = binding.name.text.toString()
+                    val phno = binding.phoneNumber.text.toString().trim()
                     addUserToDB(name,phno, mAuth.currentUser?.uid)
                     val intent = Intent(this,LoginActivity::class.java)
                     startActivity(intent)
@@ -140,6 +141,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             binding.otp.isEnabled = false
             binding.loginBtn.isEnabled = true
             binding.phoneNumber.isEnabled = true
+            binding.name.isEnabled = false
         }
     }
 

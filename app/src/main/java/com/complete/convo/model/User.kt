@@ -3,7 +3,7 @@ class User {
     var name: String? = null
     var email: String? = null
     var uid: String? = null
-    var phno : Int? = null
+    var phno : String? = null
 
     constructor()
 
@@ -12,7 +12,7 @@ class User {
         this.email = email
         this.uid = uid
     }
-    constructor(name: String?, phno : Int?, uid:String?){
+    constructor(name: String?, phno : String?, uid:String?,phn: String?){
         this.name = name
         this.phno = phno
         this.uid = uid

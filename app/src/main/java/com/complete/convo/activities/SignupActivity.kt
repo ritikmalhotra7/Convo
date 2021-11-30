@@ -43,7 +43,7 @@ class SignupActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         addUserToDB(name,email, mAuth.currentUser?.uid)
-                        val intent = Intent(this,LoginActivity::class.java)
+                        val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
                         Toast.makeText(this, "Welcome $name", Toast.LENGTH_SHORT).show()
                     } else {
@@ -62,7 +62,7 @@ class SignupActivity : AppCompatActivity() {
 
     private fun addUserToDB(name: String, email: String, uid: String?) {
 
-        dbReference = FirebaseDatabase.getInstance("https://basic-chat-application-4d671-default-rtdb.asia-southeast1.firebasedatabase.app")
+        dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .getReference()
         dbReference.child("user").child(uid!!).setValue(User(name,email,uid))
 

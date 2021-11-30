@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.loginPhone.setOnClickListener {
             startActivity(Intent(this,PhoneAuthenticationActivity::class.java))
-            finish()
+            
         }
     }
 
@@ -61,15 +61,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        /*super.onStart()*/
-        val mAuth = FirebaseAuth.getInstance().currentUser
+   /* override fun onStart() {
+        *//*super.onStart()*//*
+        *//*val mAuth = FirebaseAuth.getInstance().currentUser
         if(mAuth != null){
             startActivity(Intent(this,MainActivity::class.java))
         }else{
             super.onStart()
-        }
+        }*//*
         //create sharedPrefrences store uid when user login /sign up ,remove uid on logout
 
-    }
+    }*/
 }
