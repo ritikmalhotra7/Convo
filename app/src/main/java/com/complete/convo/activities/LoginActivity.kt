@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.widget.EditText
 import android.widget.Toast
 import com.complete.convo.databinding.ActivityLoginBinding
+import com.complete.convo.fragments.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -28,8 +29,8 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         binding.signupbutton.setOnClickListener {
-            val intent = Intent(this,SignupActivity::class.java)
-            startActivity(intent)
+           var dialog = DialogFragment()
+            dialog.show(supportFragmentManager,"customDialog")
         }
         binding.loginbutton.setOnClickListener {
             val email = binding.emailid.text.toString()
@@ -39,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.loginPhone.setOnClickListener {
             startActivity(Intent(this,PhoneAuthenticationActivity::class.java))
-            
+            finish()
         }
     }
 

@@ -8,7 +8,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Name"
+        android:hint="Enter your name"
         android:padding="15dp"
         android:layout_marginTop="100dp"
         android:layout_marginHorizontal="10dp"
@@ -18,7 +18,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Email"
+        android:hint="Enter your email"
         android:layout_below="@+id/name"
         android:padding="15dp"
         android:layout_marginTop="10dp"
@@ -26,12 +26,23 @@
         android:id="@+id/emailid"
         android:background="@drawable/edit_bg"
         />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Enter your phone number"
+        android:layout_below="@+id/emailid"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:id="@+id/phoneNumber"
+        android:background="@drawable/edit_bg"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Password"
-        android:layout_below="@+id/emailid"
+        android:hint="Set Password"
+        android:layout_below="@+id/phoneNumber"
         android:layout_marginHorizontal="10dp"
         android:id="@+id/password"
         android:padding="15dp"

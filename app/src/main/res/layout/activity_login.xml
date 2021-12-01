@@ -41,26 +41,37 @@
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/loginbutton"
-        android:id="@+id/signupbutton"
-        android:text="sign up"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        android:background="@drawable/button_bg"
-        android:layout_marginTop="100dp"
-        android:layout_marginHorizontal="10dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/signupbutton"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:text="login via phone number"
         android:id="@+id/login_phone"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginbutton"
+        android:layout_centerHorizontal="true"
+       android:layout_margin="20sp"
+        android:text="login via phone number" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_phone"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="200dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="new User?" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/signupbutton"
+            android:text="sign up"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:background="@drawable/button_bg"/>
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

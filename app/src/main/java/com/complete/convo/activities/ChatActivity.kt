@@ -48,7 +48,7 @@ class ChatActivity : Activity() {
         binding.recyclerView.adapter = mAdapter
 
 
-        dbRefrence.child("chats").child(senderRoom.toString()).child("messages").addValueEventListener(object : ValueEventListener{
+        dbRefrence.child("chats").child(senderUid +"->"+name.toString()).child("messages").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 messageList.clear()
                 for(snap in snapshot.children){
