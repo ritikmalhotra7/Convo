@@ -16,6 +16,7 @@
         android:background="@drawable/signup"
         android:contentDescription="@string/image"/>
     <EditText
+        android:inputType="textPersonName"
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="53dp"
@@ -38,6 +39,7 @@
         android:padding="15dp" />
 
     <EditText
+
         android:id="@+id/phoneNumber"
         android:layout_width="match_parent"
         android:layout_height="53dp"
@@ -46,9 +48,11 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/edit_bg"
         android:hint="Enter your phone number"
+        android:inputType="phone"
         android:padding="15dp" />
 
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="53dp"

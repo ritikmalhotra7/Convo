@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:hint="@string/type_your_otp_here" />
+        android:hint="@string/type_your_otp_here"
+        android:inputType="phone"/>
     <Button
         android:id="@+id/verifyButton"
         android:layout_width="match_parent"
