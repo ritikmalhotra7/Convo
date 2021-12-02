@@ -4,5 +4,8 @@
         android:title="@string/logout"/>
     <item android:id="@+id/wallpaper"
         android:title="@string/wallpaper"/>
+    <item
+        android:id="@+id/profilepic"
+        android:title="My Profile"/>
 
 </menu>

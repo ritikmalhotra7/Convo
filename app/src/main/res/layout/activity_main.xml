@@ -6,14 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2.5dp"
-        android:layout_marginBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -22,18 +29,15 @@
         tools:listitem="@layout/user_layout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="78dp"
-        android:layout_height="72dp"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_margin = "30dp"
         android:elevation="20dp"
         android:src="@drawable/add"
-        app:tint="@color/white"
-        android:contentDescription="@string/image_button" />
+        app:tint="@color/white" />
 
 
 </RelativeLayout>
