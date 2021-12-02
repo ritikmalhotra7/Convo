@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         binding.signupbutton.setOnClickListener {
-           var dialog = DialogFragment()
+           val dialog = DialogFragment()
             dialog.show(supportFragmentManager,"customDialog")
         }
         binding.loginbutton.setOnClickListener {

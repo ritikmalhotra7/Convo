@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.complete.convo.activities.SignupActivity
 import com.complete.convo.databinding.SignupViaDialogBinding
 
-open class DialogFragment() : DialogFragment() {
+open class DialogFragment : DialogFragment() {
    private var _binding :SignupViaDialogBinding? = null
     private val binding get() = _binding!!
 
@@ -20,13 +20,13 @@ open class DialogFragment() : DialogFragment() {
     ): View? {
         _binding = SignupViaDialogBinding.inflate(inflater,container,false)
         binding.viaph.setOnClickListener {
-            var intent = Intent(activity,SignupActivity::class.java)
+            val intent = Intent(activity,SignupActivity::class.java)
             intent.putExtra("code_",1)//for phone
             startActivity(intent)
             dismiss()
          }
-        binding.viaemail.setOnClickListener {
-            var intent = Intent(activity,SignupActivity::class.java)
+        binding.viaEmail.setOnClickListener {
+            val intent = Intent(activity,SignupActivity::class.java)
             intent.putExtra("code_",2)//for email
             startActivity(intent)
             dismiss()

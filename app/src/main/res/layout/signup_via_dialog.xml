@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Sign up"
+        android:text="@string/sign_up"
         android:textSize="30sp"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -19,7 +19,7 @@
         android:id="@+id/viaph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="via phone number"
+        android:text="@string/via_phone_number"
         android:layout_gravity="center"
         android:backgroundTint="#009CC3"
         />
@@ -27,13 +27,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="OR"
+        android:text="@string/or"
         />
     <Button
-        android:id="@+id/viaemail"
+        android:id="@+id/viaEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="via Email ID"
+        android:text="@string/sign_up_using_email_id"
         android:layout_gravity="center"
         android:backgroundTint="#009CC3"
         />

@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/receiversMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is the reciver's message"
+        android:text="@string/this_is_the_receiver_s_message"
         android:textSize="20sp"
-        android:id="@+id/recivers_messge"
         android:background="@drawable/edit_bg"
         android:padding="10dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
 
 
         />

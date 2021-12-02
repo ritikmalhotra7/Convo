@@ -19,8 +19,8 @@ class ChatActivity : Activity() {
     private lateinit var mAdapter : MessagesAdapter
     private lateinit var messageList : ArrayList<Messages>
 
-    var senderRoom : String? = null
-    var recieverRoom : String?= null
+    private var senderRoom : String? = null
+    private var recieverRoom : String?= null
 
     private lateinit var dbRefrence : DatabaseReference
 
@@ -32,7 +32,7 @@ class ChatActivity : Activity() {
 
         dbRefrence =  FirebaseDatabase
             .getInstance("https://basic-chat-application-4d671-default-rtdb.asia-southeast1.firebasedatabase.app")
-            .getReference()
+            .reference
 
         val name = intent.getStringExtra("name")
         val recieverUid = intent.getStringExtra("uid")
@@ -41,11 +41,11 @@ class ChatActivity : Activity() {
         senderRoom = recieverUid + senderUid
         recieverRoom = senderUid + recieverUid
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView1.layoutManager = LinearLayoutManager(this)
 
         messageList = ArrayList()
         mAdapter = MessagesAdapter(this,messageList)
-        binding.recyclerView.adapter = mAdapter
+        binding.recyclerView1.adapter = mAdapter
 
 
         dbRefrence.child("chats").child(senderUid +"->"+name.toString()).child("messages").addValueEventListener(object : ValueEventListener{
@@ -95,15 +95,5 @@ class ChatActivity : Activity() {
         super.onBackPressed()
         finish()
     }
-    /*override fun onDestroy() {
-        super.onDestroy()
-        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
-            putInt(lastp, lastPosition!!)
-            apply()
-        }*//*SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        SharedPreferences.Editor e = getPrefs.edit();
-        e.putInt("lastPos", lastPosition);
-        e.apply();*//*
-    }*/
+
 }

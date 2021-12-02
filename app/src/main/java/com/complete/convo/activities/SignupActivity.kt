@@ -59,9 +59,9 @@ class SignupActivity : AppCompatActivity() {
                 val phoneNumber = binding.phoneNumber.text.toString()
                 val password = binding.password.text.toString()
 
-                var dialog = OtpDialog()
+                val dialog = OtpDialog()
                 dialog.show(supportFragmentManager,"fragment for otp!")
-                var otp = intent.getStringExtra("otp")
+                val otp = intent.getStringExtra("otp")
 
                 callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -142,7 +142,7 @@ class SignupActivity : AppCompatActivity() {
     private fun addUserToDB(name: String, email: String, uid: String?) {
 
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
-            .getReference()
+            .reference
         dbReference.child("user").child(name).setValue(User(name,email,uid))
 
     }

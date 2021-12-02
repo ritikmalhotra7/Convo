@@ -4,16 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <EditText
+        android:id="@+id/otpInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:hint="Type your otp here"
-        android:id="@+id/otpinput"/>
+        android:hint="@string/type_your_otp_here" />
     <Button
+        android:id="@+id/verifyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:text="verify"
-        android:id="@+id/verifybutton"/>
+        android:background="#0C90F1"
+        android:backgroundTint="#009CC3"
+        android:text="@string/verify" />
 
 </LinearLayout>

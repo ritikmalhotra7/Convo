@@ -4,22 +4,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
+
 import android.widget.Toast
-import com.complete.convo.R
-import com.complete.convo.databinding.ActivityMainBinding
+
 import com.complete.convo.databinding.ActivityPhoneAuthenticationBinding
-import com.complete.convo.model.User
+
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+
 import java.util.concurrent.TimeUnit
 
 class PhoneAuthenticationActivity : AppCompatActivity() {

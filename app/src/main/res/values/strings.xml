@@ -1,5 +1,29 @@
 <resources>
     <string name="app_name">Convo</string>
+    <string name="register_yourself">Register yourself</string>
+    <string name="haven_t_registered_yet">Haven\'t Registered Yet?</string>
+    <string name="login_via_phone_number">Login via phone number</string>
+    <string name="log_in">log in</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="image">image</string>
+    <string name="type_your_message_here">Type your Message Here</string>
+    <string name="name">name</string>
+    <string name="image_button">image button</string>
+    <string name="enter_number">Enter Number</string>
+    <string name="login">LOGIN</string>
+    <string name="enter_your_number_to_continue">Enter your Number to Continue</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="verify">Verify</string>
+    <string name="set_password">Set Password</string>
+    <string name="type_your_otp_here">Type your otp here</string>
+    <string name="this_is_the_receiver_s_message">This is the receiver\'s message</string>
+    <string name="this_is_the_sent_message">This is the sent Message</string>
+    <string name="sign_up_using_email_id">Sign up using Email ID</string>
+    <string name="or">OR</string>
+    <string name="via_phone_number">via phone number</string>
+    <string name="sign_up">Sign up</string>
+    <string name="logout">Logout</string>
+    <string name="wallpaper">Wallpaper</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

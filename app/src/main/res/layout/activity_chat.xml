@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ChatActivity"
-    android:id="@+id/relative"
-    >
+    tools:context=".activities.ChatActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/ll"
         android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        app:stackFromEnd="true"/>
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:id="@+id/recyclerView1"
+        android:layout_marginBottom="5dp"
+        app:stackFromEnd="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,21 +30,23 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:id="@+id/message_box"
             android:layout_weight="100"
             android:background="@drawable/edit_bg"
-            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:singleLine="true"
-            android:hint="Type a Message"
+            android:hint="@string/type_your_message_here"
+            android:id="@+id/messageBox"
             />
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/send"
-            android:id="@+id/send"
             android:layout_weight="5"
             android:padding="1dp"
-            app:tint="@color/sea_green" />
+            android:contentDescription="@string/image"
+            app:tint="@color/sea_green"
+            android:id="@+id/send"/>
     </LinearLayout>
 
 

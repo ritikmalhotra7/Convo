@@ -1,15 +1,19 @@
 package com.complete.convo.activities
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ContextMenu
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.complete.convo.R
 import com.complete.convo.adapters.UserAdapter
 import com.complete.convo.databinding.ActivityMainBinding
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var firebase : Firebase
     private lateinit var mAuth :FirebaseAuth
-    private lateinit var DBReference : DatabaseReference
+    private lateinit var dbReference : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mAuth = FirebaseAuth.getInstance()
-        DBReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference()
+        dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
@@ -43,7 +47,8 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
 
-        DBReference.child("user").addValueEventListener(object: ValueEventListener {
+        dbReference.child("user").addValueEventListener(object: ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 Toast.makeText(this@MainActivity, snapshot.childrenCount.toString(),Toast.LENGTH_SHORT).show()
                 userList.clear()
@@ -77,6 +82,21 @@ class MainActivity : AppCompatActivity() {
 
                 return true
             }
+            R.id.wallpaper ->{
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED
+                ) {
+                    showImageChooser()
+                } else {
+
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        READ_STORAGE_PERMISSION_CODE
+                    )
+                }
+
+            }
         }
         return true
     }
@@ -85,10 +105,20 @@ class MainActivity : AppCompatActivity() {
         _binding = null
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-
+    private fun showImageChooser() {
+        // An intent for launching the image selection of phone storage.
+        val galleryIntent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+        // Launches the image selection of phone storage using the constant code.
+        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
     }
+    companion object {
+        //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
+        private const val READ_STORAGE_PERMISSION_CODE = 1
 
+        private const val PICK_IMAGE_REQUEST_CODE = 2
+    }
 
 }
