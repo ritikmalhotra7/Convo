@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.complete.convo.adapters.MessagesAdapter
 import com.complete.convo.databinding.ActivityChatBinding
 import com.complete.convo.model.Messages
-import com.complete.convo.model.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 
 class ChatActivity : Activity() {
     private var _binding : ActivityChatBinding? = null
@@ -25,7 +23,7 @@ class ChatActivity : Activity() {
     private var senderRoom : String? = null
     private var recieverRoom : String?= null
 
-    private lateinit var dbRefrence : DatabaseReference
+    private lateinit var dbReference : DatabaseReference
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -34,7 +32,7 @@ class ChatActivity : Activity() {
         _binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        dbRefrence = FirebaseDatabase
+        dbReference = FirebaseDatabase
             .getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .reference
 
@@ -42,21 +40,7 @@ class ChatActivity : Activity() {
         val recieversName = intent.getStringExtra("name")
         val recieverUid = intent.getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid!!
-        /*apply {
-            dbRefrence.child("user").child(senderUid)
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        senderUser = snapshot.getValue(User ::class.java)
-                    }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
-        }
-        val senderName = senderUser?.name
-        *//**/
 
         senderRoom = recieverUid + senderUid
         recieverRoom = senderUid + recieverUid
@@ -67,7 +51,7 @@ class ChatActivity : Activity() {
         binding.recyclerView1.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
 
-        dbRefrence.child("chats").child("$recieversName <- $senderUid").child("messages")
+        dbReference.child("chats").child("$recieversName <- $senderUid").child("messages")
             .addValueEventListener(object : ValueEventListener {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -94,10 +78,10 @@ class ChatActivity : Activity() {
             val messageObject = Messages(message, senderUid)
 
             if (message.isNotEmpty()) {
-                dbRefrence.child("chats").child("$recieversName <- $senderUid").child("messages")
+                dbReference.child("chats").child("$recieversName <- $senderUid").child("messages")
                     .push()
                     .setValue(messageObject).addOnSuccessListener {
-                        dbRefrence.child("chats")
+                        dbReference.child("chats")
                             .child(recieverRoom.toString() + (" ($recieversName)"))
                             .child("messages").push()
                             .setValue(messageObject)
@@ -114,10 +98,7 @@ class ChatActivity : Activity() {
         }
 
     }
-    /* override fun onSupportNavigateUp(): Boolean {
-         onBackPressed()
-         return super.onSupportNavigateUp()
-     }*/
+
 
     override fun onBackPressed() {
         super.onBackPressed()

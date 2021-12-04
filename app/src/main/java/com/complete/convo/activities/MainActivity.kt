@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userList:ArrayList<User>
     private lateinit var adapter : UserAdapter
 
-    private lateinit var firebase : Firebase
     private lateinit var mAuth :FirebaseAuth
     private lateinit var uri:Uri
     private lateinit var dbReference : DatabaseReference
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        uri = Uri.parse(sharedPref.getString("imageuri","/"))
+        uri = Uri.parse(sharedPref.getString("imageUri","/"))
         binding.imageview.setImageURI(uri)
 
         dbReference.child("user").addValueEventListener(object: ValueEventListener {
@@ -74,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         })
         binding.fab.setOnClickListener {
-            var intent = Intent(this,AllUsers::class.java)
+            val intent = Intent(this,AllUsers::class.java)
             startActivity(intent)
         }
     }
@@ -108,7 +106,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            R.id.profilepic ->{
+            R.id.profilePic ->{
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED
                 ) {

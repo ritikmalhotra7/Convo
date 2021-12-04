@@ -8,15 +8,12 @@ import android.util.Log
 import android.widget.Toast
 
 import com.complete.convo.databinding.ActivityPhoneAuthenticationBinding
-import com.complete.convo.model.User
 
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 import java.util.concurrent.TimeUnit
 
@@ -24,12 +21,10 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
 
     private var _binding : ActivityPhoneAuthenticationBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var mAuth: FirebaseAuth
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    private lateinit var db : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,10 +97,10 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val phno = binding.phoneNumber.text.toString().trim()
+                    val phNo = binding.phoneNumber.text.toString().trim()
                     val intent = Intent(this,MainActivity::class.java)
                     startActivity(intent)
-                    Toast.makeText(this, "Welcome $phno", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Welcome $phNo", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("taget",task.exception.toString())
                     Toast.makeText(

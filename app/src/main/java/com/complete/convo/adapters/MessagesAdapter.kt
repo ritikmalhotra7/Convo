@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.complete.convo.databinding.RecieveMessageBinding
 import com.complete.convo.databinding.SentBinding
-
 import com.complete.convo.model.Messages
 import com.google.firebase.auth.FirebaseAuth
 

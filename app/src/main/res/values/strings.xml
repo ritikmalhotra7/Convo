@@ -9,14 +9,12 @@
     <string name="image">image</string>
     <string name="type_your_message_here">Type your Message Here</string>
     <string name="name">name</string>
-    <string name="image_button">image button</string>
     <string name="enter_number">Enter Number</string>
     <string name="login">LOGIN</string>
     <string name="enter_your_number_to_continue">Enter your Number to Continue</string>
     <string name="enter_otp">Enter OTP</string>
     <string name="verify">Verify</string>
     <string name="set_password">Set Password</string>
-    <string name="type_your_otp_here">Type your otp here</string>
     <string name="this_is_the_receiver_s_message">This is the receiver\'s message</string>
     <string name="this_is_the_sent_message">This is the sent Message</string>
     <string name="sign_up_using_email_id">Sign up using Email ID</string>
@@ -25,5 +23,17 @@
     <string name="sign_up">Sign up</string>
     <string name="logout">Logout</string>
     <string name="wallpaper">Wallpaper</string>
+    <string name="country_code">+91</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="register">Register</string>
+    <string name="verify_otp">verify otp</string>
+    <string name="my_profile">My Profile</string>
+
+
+    <string name="sending_the_message">Sending The Message</string>
+    <string name="recievermessage">RecieverMessage</string>
+    <string name="sender_message">Sender Message</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

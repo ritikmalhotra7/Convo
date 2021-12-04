@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Convo">
         <activity
-            android:name=".activities.allUsers"
+            android:name=".activities.AllUsers"
             android:exported="true" />
         <activity
             android:name=".activities.PhoneAuthenticationActivity"
@@ -37,7 +37,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
     </application>
 
 </manifest>

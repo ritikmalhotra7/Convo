@@ -5,7 +5,7 @@
     <item android:id="@+id/wallpaper"
         android:title="@string/wallpaper"/>
     <item
-        android:id="@+id/profilepic"
-        android:title="My Profile"/>
+        android:id="@+id/profilePic"
+        android:title="@string/my_profile"/>
 
 </menu>

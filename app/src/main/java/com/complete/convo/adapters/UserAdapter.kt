@@ -19,8 +19,6 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
         val textName = binding.name
 
         val v = binding.root
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,8 +14,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:id="@+id/recyclerView1"
-        app:stackFromEnd="true" />
+        app:stackFromEnd="true"
+        android:id="@+id/recyclerView1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,19 +33,42 @@
             android:background="@drawable/edit_bg"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:singleLine="true"
-            android:hint="@string/type_your_message_here"
             android:id="@+id/messageBox"
+            android:singleLine="true"
+            android:inputType="text"
+            android:hint="@string/type_your_message_here"
+            android:importantForAutofill="no" />
+<!--        <ImageView-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:src="@drawable/send"-->
+<!--            android:layout_weight="5"-->
+<!--            android:padding="1dp"-->
+<!--            android:id="@+id/send"-->
+<!--            android:contentDescription="@string/image"-->
+<!--            app:tint="@color/sea_green" />-->
+<!--        <Button-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:src="@drawable/ic_baseline_send_24"-->
+
+<!--            -->
+<!--            android:id="@+id/send"-->
+<!--            android:contentDescription="@string/image"-->
+<!--            />-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabCustomSize="55dp"
+            android:layout_marginTop="-56dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="15dp"
+            android:tint="@color/mycolor6"
+            android:src="@drawable/ic_baseline_send_24"
+            android:contentDescription="@string/sending_the_message"
             />
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/send"
-            android:layout_weight="5"
-            android:padding="1dp"
-            android:contentDescription="@string/image"
-            app:tint="@color/sea_green"
-            android:id="@+id/send"/>
     </LinearLayout>
 
 

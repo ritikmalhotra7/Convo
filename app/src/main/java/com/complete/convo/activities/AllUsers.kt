@@ -1,19 +1,14 @@
 package com.complete.convo.activities
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.complete.convo.R
 import com.complete.convo.adapters.UserAdapter
 import com.complete.convo.databinding.ActivityAllUsersBinding
-import com.complete.convo.databinding.ActivityMainBinding
 import com.complete.convo.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 
 class AllUsers : AppCompatActivity() {
     private var _binding : ActivityAllUsersBinding? = null
@@ -34,9 +29,9 @@ class AllUsers : AppCompatActivity() {
 
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
-        binding.recyclerViewforall.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewforall.adapter = adapter
-        binding.recyclerViewforall.setHasFixedSize(true)
+        binding.recyclerViewforAll.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewforAll.adapter = adapter
+        binding.recyclerViewforAll.setHasFixedSize(true)
 
         dbReference.child("user").addValueEventListener(object: ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")

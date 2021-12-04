@@ -3,17 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/drawable/receiver_bg.xml" value="0.2140625" />
+        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/drawable/sender_bg.xml" value="0.2140625" />
+        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_all_users.xml" value="0.1" />
         <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_chat.xml" value="0.1" />
-        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_login.xml" value="0.14" />
+        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_phone_authentication.xml" value="0.1" />
-        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_signup.xml" value="0.18" />
+        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/otp_dialog.xml" value="0.1" />
-        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/recieve_message.xml" value="0.1" />
+        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/recieve_message.xml" value="0.18" />
         <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/sent.xml" value="0.1" />
         <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/signup_via_dialog.xml" value="0.12" />
         <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/layout/user_layout.xml" value="0.1" />
-        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/menu/side_menu2.xml" value="0.17962962962962964" />
+        <entry key="..\:/Users/Abhishek/AndroidStudioProjects/Convo/app/src/main/res/menu/side_menu2.xml" value="0.1" />
         <entry key="..\:/Users/ritik/AndroidStudioProjects/Convo/app/src/main/res/drawable-v24/add.xml" value="0.325" />
         <entry key="..\:/Users/ritik/AndroidStudioProjects/Convo/app/src/main/res/drawable-v24/edit_bg.xml" value="0.34371807967313583" />
         <entry key="..\:/Users/ritik/AndroidStudioProjects/Convo/app/src/main/res/drawable/send.xml" value="0.24074074074074073" />

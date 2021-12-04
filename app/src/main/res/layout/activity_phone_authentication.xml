@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="2"
     android:gravity="center"
-    tools:context=".activities.PhoneAuthenticationActivity" >
+    tools:context=".activities.PhoneAuthenticationActivity">
     <ImageView
         android:id="@+id/login_image"
         android:layout_width="match_parent"
@@ -41,12 +39,11 @@
             android:enabled="false"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="+91"
+            android:text="@string/country_code"
             android:textColor="#5E5E5E"
             />
 
         <EditText
-            android:id="@+id/phoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
@@ -54,6 +51,7 @@
             android:hint="@string/enter_number"
             android:textColor="#1F1F1F"
             tools:ignore="RtlSymmetry"
+            android:id="@+id/phoneNumber"
             android:autofillHints="phone"/>
 
     </LinearLayout>
@@ -77,10 +75,11 @@
         android:layout_marginHorizontal="30dp"
         android:paddingStart="10dp"
         android:hint="@string/enter_otp"
-        android:id="@+id/otp"
         android:enabled="false"
+        android:id="@+id/otp"
         android:textColor="#1F1F1F"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        android:importantForAutofill="no" />
 
     <Button
         android:layout_width="match_parent"
@@ -88,7 +87,7 @@
         android:layout_margin="40dp"
         android:background="#6372FF"
         android:text="@string/verify"
-        android:id="@+id/verify"
         android:enabled="false"
+        android:id="@+id/verify"
         android:textColor="#ffffff" />
 </LinearLayout>

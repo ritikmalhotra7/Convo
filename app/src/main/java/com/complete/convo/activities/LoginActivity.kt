@@ -1,12 +1,10 @@
 package com.complete.convo.activities
 
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.complete.convo.databinding.ActivityLoginBinding
 import com.complete.convo.fragments.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -28,11 +26,11 @@ class LoginActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        binding.signupbutton.setOnClickListener {
+        binding.signUpButton.setOnClickListener {
            val dialog = DialogFragment()
             dialog.show(supportFragmentManager,"customDialog")
         }
-        binding.loginbutton.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             val email = binding.emailid.text.toString()
             val password = binding.password.text.toString()
 

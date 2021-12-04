@@ -27,21 +27,24 @@ class SignupActivity : AppCompatActivity() {
     lateinit var storedVerificationId: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    private lateinit var credential:PhoneAuthCredential
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mAuth = FirebaseAuth.getInstance()
-        val phoneoremail = intent.getIntExtra("code_",0)
+        val phoneOrEmail = intent.getIntExtra("code_",0)
 
-        if(phoneoremail == 1){
-            binding.emailid.isEnabled = false
-        }else if(phoneoremail == 2){
-            binding.phoneNumber.isEnabled = false
-        }else{
-            Toast.makeText(this,"error",Toast.LENGTH_LONG).show()
+        when (phoneOrEmail) {
+            1 -> {
+                binding.emailid.isEnabled = false
+            }
+            2 -> {
+                binding.phoneNumber.isEnabled = false
+            }
+            else -> {
+                Toast.makeText(this,"error",Toast.LENGTH_LONG).show()
+            }
         }
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -70,12 +73,16 @@ class SignupActivity : AppCompatActivity() {
             }
         }
         binding.signupbutton.setOnClickListener {
-            if(phoneoremail == 1){
-               login()
-            }else if(phoneoremail == 2){
-                viaEmail()
-            }else{
-                Toast.makeText(this,"error",Toast.LENGTH_LONG).show()
+            when (phoneOrEmail) {
+                1 -> {
+                    login()
+                }
+                2 -> {
+                    viaEmail()
+                }
+                else -> {
+                    Toast.makeText(this,"error",Toast.LENGTH_LONG).show()
+                }
             }
         }
         binding.verify.setOnClickListener{
@@ -99,7 +106,7 @@ class SignupActivity : AppCompatActivity() {
             mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        addUserToDBviaEmail(name,email, mAuth.currentUser?.uid.toString())
+                        addUserToDbViaEmail(name,email, mAuth.currentUser?.uid.toString())
                         val intent = Intent(this,MainActivity::class.java)
                         startActivity(intent)
                         Toast.makeText(this, "Welcome $name", Toast.LENGTH_SHORT).show()
@@ -118,7 +125,7 @@ class SignupActivity : AppCompatActivity() {
 
     }
 
-    private fun addUserToDBviaEmail(name : String,email :String,uid : String) {
+    private fun addUserToDbViaEmail(name : String, email :String, uid : String) {
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .reference
         dbReference.child("user").child(uid).setValue(User(name,email,uid))
@@ -128,10 +135,10 @@ class SignupActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val phno = binding.phoneNumber.text.toString().trim()
+                    val phoneNumber = binding.phoneNumber.text.toString().trim()
                     val intent = Intent(this,MainActivity::class.java)
                     startActivity(intent)
-                    Toast.makeText(this, "Welcome $phno", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Welcome $phoneNumber", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("taget",task.exception.toString())
                     Toast.makeText(
@@ -141,6 +148,10 @@ class SignupActivity : AppCompatActivity() {
                 }
             }
     }
+
+
+
+
     private fun login() {
         var number = binding.phoneNumber.text.toString().trim()
 
