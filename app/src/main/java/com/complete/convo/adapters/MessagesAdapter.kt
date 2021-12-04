@@ -1,7 +1,6 @@
 package com.complete.convo.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
@@ -10,17 +9,9 @@ import com.complete.convo.databinding.RecieveMessageBinding
 import com.complete.convo.databinding.SentBinding
 import com.complete.convo.model.Messages
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import java.sql.Timestamp
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class MessagesAdapter(val context : Context, private val messageList : ArrayList<Messages>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var dbReference : DatabaseReference = FirebaseDatabase
-        .getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        .reference
-    private var mAuth :FirebaseAuth = FirebaseAuth.getInstance()
     private val sentItem = 1
     private val recievedItem = 2
 

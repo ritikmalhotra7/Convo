@@ -22,7 +22,6 @@ import com.complete.convo.databinding.ActivityMainBinding
 import com.complete.convo.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {

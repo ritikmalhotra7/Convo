@@ -8,14 +8,23 @@ import android.util.Log
 import android.widget.Toast
 
 import com.complete.convo.databinding.ActivityPhoneAuthenticationBinding
+import com.complete.convo.model.User
 
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.*
 
 import java.util.concurrent.TimeUnit
+import com.google.firebase.auth.AuthResult
+
+import androidx.annotation.NonNull
+
+import com.google.android.gms.tasks.OnCompleteListener
+import java.lang.Exception
+
 
 class PhoneAuthenticationActivity : AppCompatActivity() {
 
@@ -23,6 +32,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private lateinit var mAuth: FirebaseAuth
     lateinit var storedVerificationId: String
+    private lateinit var db : DatabaseReference
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
@@ -98,8 +108,20 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val phNo = binding.phoneNumber.text.toString().trim()
-                    val intent = Intent(this,MainActivity::class.java)
-                    startActivity(intent)
+                    try {
+                        val completeListener: OnCompleteListener<AuthResult> =
+                            OnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
+                                    Log.d(
+                                        "MyTAG",
+                                        "onComplete: " + if (isNew!!) "new user" else "old user"
+                                    )
+                                }
+                            }
+                    }catch(){
+
+                    }
                     Toast.makeText(this, "Welcome $phNo", Toast.LENGTH_SHORT).show()
                 } else {
                     Log.d("taget",task.exception.toString())
@@ -136,6 +158,13 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
+    }
+    private fun addUserToDB(name: String, phone: String, uid: String?) {
+
+        db = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .reference
+        db.child("user").child(name).setValue(User(name,phone,uid,phone))
+
     }
     /*private fun addUserToDB(name: String, email: String, uid: String?) {
 

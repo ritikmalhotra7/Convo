@@ -2,7 +2,7 @@
     <string name="app_name">Convo</string>
     <string name="register_yourself">Register yourself</string>
     <string name="haven_t_registered_yet">Haven\'t Registered Yet?</string>
-    <string name="login_via_phone_number">Login via phone number</string>
+    <string name="login_via_phone_number">Login/Signup via phone number</string>
     <string name="log_in">log in</string>
     <string name="password">Password</string>
     <string name="email">Email</string>

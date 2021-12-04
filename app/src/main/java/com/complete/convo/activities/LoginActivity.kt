@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.complete.convo.databinding.ActivityLoginBinding
-import com.complete.convo.fragments.DialogFragment
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -27,8 +26,8 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         binding.signUpButton.setOnClickListener {
-           val dialog = DialogFragment()
-            dialog.show(supportFragmentManager,"customDialog")
+           val intent = Intent(this,SignupActivity::class.java)
+            startActivity(intent)
         }
         binding.loginButton.setOnClickListener {
             val email = binding.emailid.text.toString()
@@ -59,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this , "Please Enter Something", Toast.LENGTH_SHORT).show()
         }
     }
+
 
    /* override fun onStart() {
         *//*super.onStart()*//*
