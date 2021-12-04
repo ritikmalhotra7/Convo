@@ -10,19 +10,37 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_alignParentEnd="true"
         android:background="@drawable/sender_bg"
+        android:gravity="end"
         tools:ignore="UselessParent">
         <TextView
             android:id="@+id/sentMessage"
             android:layout_width="wrap_content"
+            android:paddingEnd="20sp"
             android:layout_height="wrap_content"
             android:text="@string/sender_message"
             android:textStyle="normal"
             android:textSize="18sp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+
+            />
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/txtsTime"
+            android:paddingEnd="30sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sender_message"
+            android:textStyle="italic"
+            android:textSize="13sp"
+            android:layout_marginBottom="5dp"
+
+
             />
 
     </LinearLayout>

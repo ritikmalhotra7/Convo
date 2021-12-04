@@ -1,6 +1,7 @@
 package com.complete.convo.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
@@ -9,17 +10,27 @@ import com.complete.convo.databinding.RecieveMessageBinding
 import com.complete.convo.databinding.SentBinding
 import com.complete.convo.model.Messages
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MessagesAdapter(val context : Context, private val messageList : ArrayList<Messages>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    private var dbReference : DatabaseReference = FirebaseDatabase
+        .getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        .reference
+    private var mAuth :FirebaseAuth = FirebaseAuth.getInstance()
     private val sentItem = 1
     private val recievedItem = 2
 
     class SentHolder(binding : SentBinding) : RecyclerView.ViewHolder(binding.root){
         val sentMessage = binding.sentMessage
+        val txt = binding.txtsTime
     }
     class RecieverHolder(binding : RecieveMessageBinding) : RecyclerView.ViewHolder(binding.root){
         val recievedMessage = binding.receiversMessage
+        val txt = binding.txtrTime
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,10 +48,26 @@ class MessagesAdapter(val context : Context, private val messageList : ArrayList
         if(holder.javaClass == SentHolder::class.java){
             val viewHolder = holder as SentHolder
             holder.sentMessage.text = currentMessage.message
+            /*var sdf:SimpleDateFormat = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())*/
+            /*dbReference.child("chats").child(mAuth.currentUser?.uid!!).child("messages").addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                   for(snap in snapshot.children){
+                       var message = snap.getValue(Messages::class.java)
+                       if(message)
+                   }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+
+            })*/
+            holder.txt.text = currentMessage.time
+
 
         }else{
             val viewHolder = holder as RecieverHolder
             holder.recievedMessage.text = currentMessage.message
+            holder.txt.text = currentMessage.time
         }
     }
 
@@ -52,7 +79,6 @@ class MessagesAdapter(val context : Context, private val messageList : ArrayList
             recievedItem
         }
     }
-
     override fun getItemCount(): Int {
         return messageList.size
     }

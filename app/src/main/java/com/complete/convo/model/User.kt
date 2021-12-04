@@ -5,6 +5,7 @@ class User {
     var uid: String? = null
     private var phoneNumber : String? = null
 
+    constructor()
     constructor(name: String?, email:String?, uid:String?){
         this.name = name
         this.email = email

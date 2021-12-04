@@ -12,6 +12,9 @@ import com.complete.convo.model.Messages
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.sql.Timestamp
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ChatActivity : Activity() {
     private var _binding : ActivityChatBinding? = null
@@ -51,7 +54,7 @@ class ChatActivity : Activity() {
         binding.recyclerView1.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
 
-        dbReference.child("chats").child("$recieversName <- $senderUid").child("messages")
+        dbReference.child("chats").child(senderUid).child("messages")
             .addValueEventListener(object : ValueEventListener {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -70,23 +73,20 @@ class ChatActivity : Activity() {
                 }
 
             })
-
-
         binding.send.setOnClickListener {
             val message = binding.messageBox.text.toString()
-            Log.d("taget", message)
-            val messageObject = Messages(message, senderUid)
+            val c = Calendar.getInstance()
+            val hour = c.get(Calendar.HOUR_OF_DAY)
+            val minute = c.get(Calendar.MINUTE)
+            val timeStamp = "$hour:$minute"
+            val messageObject = Messages(message,timeStamp , senderUid)
 
             if (message.isNotEmpty()) {
-                dbReference.child("chats").child("$recieversName <- $senderUid").child("messages")
-                    .push()
+                dbReference.child("chats").child(senderUid).child("messages").push()
                     .setValue(messageObject).addOnSuccessListener {
-                        dbReference.child("chats")
-                            .child(recieverRoom.toString() + (" ($recieversName)"))
-                            .child("messages").push()
+                        dbReference.child("chats").child(recieverUid!!).child("messages").push()
                             .setValue(messageObject)
                     }
-
                 binding.messageBox.setText("")
             } else {
                 Toast.makeText(
