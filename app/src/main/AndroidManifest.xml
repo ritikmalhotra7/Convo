@@ -8,9 +8,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/undraw_ideas_s70l"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/undraw_ideas_s70l"
         android:supportsRtl="true"
         android:theme="@style/Theme.Convo">
         <activity

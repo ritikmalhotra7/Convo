@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.complete.convo.databinding.ActivitySignupBinding
 import com.complete.convo.model.User
@@ -38,9 +39,13 @@ class SignupActivity : AppCompatActivity() {
         when (phoneOrEmail) {
             1 -> {
                 binding.emailid.isEnabled = false
+                binding.verify.isEnabled = false
+                binding.otp.isEnabled = false
             }
             2 -> {
                 binding.phoneNumber.isEnabled = false
+                binding.otp.visibility = View.INVISIBLE
+                binding.verify.visibility = View.INVISIBLE
             }
             else -> {
                 Toast.makeText(this,"error",Toast.LENGTH_LONG).show()
@@ -76,6 +81,8 @@ class SignupActivity : AppCompatActivity() {
             when (phoneOrEmail) {
                 1 -> {
                     login()
+                    binding.verify.isEnabled = true
+                    binding.otp.isEnabled = true
                 }
                 2 -> {
                     viaEmail()
