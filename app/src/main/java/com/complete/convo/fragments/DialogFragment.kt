@@ -21,7 +21,7 @@ open class DialogFragment : DialogFragment() {
         _binding = SignupViaDialogBinding.inflate(inflater,container,false)
         binding.viaph.setOnClickListener {
             val intent = Intent(activity,SignupActivity::class.java)
-            intent.putExtra("code_",1)//for phone
+            intent.putExtra("code_",1)
             startActivity(intent)
             dismiss()
          }

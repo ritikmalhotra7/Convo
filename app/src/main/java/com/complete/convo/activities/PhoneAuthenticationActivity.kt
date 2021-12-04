@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 
 import com.complete.convo.databinding.ActivityPhoneAuthenticationBinding
+import com.complete.convo.model.User
 
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -15,6 +16,7 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 import java.util.concurrent.TimeUnit
 
@@ -140,5 +142,12 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
+    /*private fun addUserToDB(name: String, email: String, uid: String?) {
+
+        dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .reference
+        dbReference.child("user").child(name).setValue(User(name,email,uid))
+
+    }*/
 
 }
