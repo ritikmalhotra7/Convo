@@ -119,8 +119,8 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                                     )
                                 }
                             }
-                    }catch(){
-
+                    }catch(e:Exception){
+                        Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show()
                     }
                     Toast.makeText(this, "Welcome $phNo", Toast.LENGTH_SHORT).show()
                 } else {

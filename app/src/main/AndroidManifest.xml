@@ -15,19 +15,29 @@
         android:theme="@style/Theme.Convo">
         <activity
             android:name=".activities.PhoneNewUser"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Convo.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.AllUsers"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Convo.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.PhoneAuthenticationActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Convo.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ChatActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Convo.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.SignupActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Convo.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true"

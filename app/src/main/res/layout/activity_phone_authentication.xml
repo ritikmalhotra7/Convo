@@ -51,7 +51,6 @@
             android:background="@drawable/edit_bg"
             android:textColor="#808080"
             tools:ignore="RtlSymmetry"
-            android:id="@+id/phoneNumber"
             android:autofillHints="phone"/>
 
     </LinearLayout>
@@ -62,13 +61,11 @@
         android:layout_margin="40dp"
         android:background="#6372FF"
         android:text="@string/login"
-        android:id="@+id/loginBtn"
         android:shadowRadius="10"
         android:textColor="#ffffff" />
 
 
     <EditText
-        android:id="@+id/otp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="30dp"
@@ -88,6 +85,5 @@
         android:background="#6372FF"
         android:text="@string/verify"
         android:enabled="false"
-        android:id="@+id/verify"
         android:textColor="#ffffff" />
 </LinearLayout>

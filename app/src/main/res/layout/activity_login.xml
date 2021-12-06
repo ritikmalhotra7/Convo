@@ -44,29 +44,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout"
         android:layout_below="@+id/password"
-        android:weightSum="30"
         android:layout_margin="20sp"
-        >
+        android:orientation="horizontal"
+        android:weightSum="30">
+
         <Button
-            android:id="@+id/loginButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
+            android:layout_weight="10"
             android:background="@drawable/button_bg"
             android:text="@string/log_in"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            android:layout_weight="10"/>
+            android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/login_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
             android:layout_marginStart="10dp"
+            android:layout_weight="20"
             android:gravity="center"
             android:paddingVertical="10dp"
             android:text="@string/login_via_phone_number"
@@ -78,7 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:id="@+id/lll"
         android:weightSum="3"
         android:orientation="horizontal">
 
@@ -101,7 +97,6 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:layout_marginEnd="20sp"
-            android:id="@+id/signUpButton"
             android:layout_marginStart="35dp"/>
     </LinearLayout>
 

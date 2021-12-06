@@ -15,20 +15,12 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="verify">Verify</string>
     <string name="set_password">Set Password</string>
-    <string name="this_is_the_receiver_s_message">This is the receiver\'s message</string>
-    <string name="this_is_the_sent_message">This is the sent Message</string>
-    <string name="sign_up_using_email_id">Sign up using Email ID</string>
-    <string name="or">OR</string>
-    <string name="via_phone_number">via phone number</string>
-    <string name="sign_up">Sign up</string>
     <string name="logout">Logout</string>
     <string name="wallpaper">Wallpaper</string>
     <string name="country_code">+91</string>
     <string name="enter_your_name">Enter your name</string>
     <string name="enter_your_email">Enter your email</string>
-    <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="register">Register</string>
-    <string name="verify_otp">verify otp</string>
     <string name="my_profile">My Profile</string>
 
 

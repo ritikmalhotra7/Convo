@@ -12,25 +12,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/ll"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        app:stackFromEnd="true"
-        android:id="@+id/recyclerView1"/>
+        app:stackFromEnd="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll"
         android:weightSum="100"
         android:padding="10dp"
         android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        >
+        android:orientation="horizontal">
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="90"
             android:drawableStart="@drawable/thinking"
@@ -38,7 +33,6 @@
             android:background="@drawable/edit_bg"
             android:paddingStart="10dp"
             android:paddingEnd="12dp"
-            android:id="@+id/messageBox"
             android:singleLine="true"
             android:inputType="text"
             android:hint="@string/type_your_message_here"
@@ -62,7 +56,6 @@
 <!--            android:contentDescription="@string/image"-->
 <!--            />-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabCustomSize="40dp"
