@@ -3,7 +3,7 @@ package com.complete.convo.activities
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
+
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.complete.convo.adapters.MessagesAdapter

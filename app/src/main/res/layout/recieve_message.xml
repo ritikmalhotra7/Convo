@@ -16,7 +16,7 @@
         tools:ignore="UselessParent">
 
         <TextView
-
+            android:id="@+id/receiversMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -27,6 +27,7 @@
             android:textColor="@color/white"
             android:textStyle="normal" />
         <TextView
+            android:id="@+id/txtrTime"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
             android:paddingStart="20sp"

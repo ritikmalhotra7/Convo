@@ -19,6 +19,7 @@
         android:contentDescription="@string/image"
         android:padding="505dp" />
     <EditText
+        android:id="@+id/name"
         android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="53dp"
@@ -56,6 +57,7 @@
         android:importantForAutofill="no" />
 
     <Button
+        android:id="@+id/signupbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"

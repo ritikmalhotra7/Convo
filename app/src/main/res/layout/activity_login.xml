@@ -52,7 +52,7 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
+            android:id="@+id/loginButton"
             android:layout_weight="10"
             android:background="@drawable/button_bg"
             android:text="@string/log_in"
@@ -60,6 +60,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/loginPhone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -89,6 +90,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/signUpButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_bg"
