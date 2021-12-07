@@ -17,31 +17,32 @@
             android:name=".activities.PhoneNewUser"
             android:exported="true"
             android:theme="@style/Theme.Convo.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AllUsers"
             android:exported="true"
             android:theme="@style/Theme.Convo.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.PhoneAuthenticationActivity"
             android:exported="true"
             android:theme="@style/Theme.Convo.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.ChatActivity"
             android:exported="true"
             android:theme="@style/Theme.Convo.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SignupActivity"
             android:exported="true"
             android:theme="@style/Theme.Convo.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.Convo">
+            android:theme="@style/Theme.Convo"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

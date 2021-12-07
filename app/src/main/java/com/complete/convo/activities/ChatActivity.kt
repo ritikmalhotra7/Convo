@@ -2,9 +2,11 @@ package com.complete.convo.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.complete.convo.adapters.MessagesAdapter
 import com.complete.convo.databinding.ActivityChatBinding
@@ -16,7 +18,7 @@ import java.sql.Timestamp
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ChatActivity : Activity() {
+class ChatActivity : AppCompatActivity() {
     private var _binding : ActivityChatBinding? = null
     private val binding get() = _binding!!
 
@@ -48,13 +50,18 @@ class ChatActivity : Activity() {
         senderRoom = recieverUid + senderUid
         recieverRoom = senderUid + recieverUid
 
+
+        binding.toolbar.title = recieversName
+        setSupportActionBar(binding.toolbar)
+
+
         binding.recyclerView1.layoutManager = LinearLayoutManager(this)
         messageList = ArrayList()
         mAdapter = MessagesAdapter(this, messageList)
         binding.recyclerView1.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
 
-        dbReference.child("chats").child(senderUid).child("messages")
+        dbReference.child("chats").child(senderRoom!!).child("messages")
             .addValueEventListener(object : ValueEventListener {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -65,6 +72,9 @@ class ChatActivity : Activity() {
                         messageList.add(message!!)
                     }
                     mAdapter.notifyDataSetChanged()
+                    val intent = Intent(this@ChatActivity,MainActivity::class.java)
+                    intent.putExtra("message_list_size",messageList.size)
+                    intent.putExtra("username",recieverUid)
 
                 }
 
@@ -82,9 +92,9 @@ class ChatActivity : Activity() {
             val messageObject = Messages(message,timeStamp , senderUid)
 
             if (message.isNotEmpty()) {
-                dbReference.child("chats").child(senderUid).child("messages").push()
+                dbReference.child("chats").child(senderRoom!!).child("messages").push()
                     .setValue(messageObject).addOnSuccessListener {
-                        dbReference.child("chats").child(recieverUid!!).child("messages").push()
+                        dbReference.child("chats").child(recieverRoom!!).child("messages").push()
                             .setValue(messageObject)
                     }
                 binding.messageBox.setText("")

@@ -48,6 +48,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     testImplementation 'junit:junit:'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.1.1'

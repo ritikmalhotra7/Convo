@@ -1,9 +1,12 @@
 package com.complete.convo.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.EditText
 
 import android.widget.Toast
 
@@ -21,6 +24,8 @@ import java.util.concurrent.TimeUnit
 import com.google.firebase.auth.AuthResult
 
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AlertDialog
+import com.complete.convo.databinding.DialogViewBinding
 
 import com.google.android.gms.tasks.OnCompleteListener
 import java.lang.Exception
@@ -52,7 +57,10 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        binding.otp.isEnabled = false
+        binding.verify.isEnabled = false
         login.setOnClickListener {
             binding.verify.isEnabled = true
             binding.otp.isEnabled = true
@@ -95,7 +103,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
 
-                Log.d("TAG", "onCodeSent:$verificationId")
+                Log.d("TAG", "onCodeSent:$verificationId YYYYYYY $resendToken")
                 storedVerificationId = verificationId
                 resendToken = token
             }
@@ -107,22 +115,43 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val phNo = binding.phoneNumber.text.toString().trim()
-                    try {
-                        val completeListener: OnCompleteListener<AuthResult> =
-                            OnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
-                                    Log.d(
-                                        "MyTAG",
-                                        "onComplete: " + if (isNew!!) "new user" else "old user"
-                                    )
-                                }
-                            }
-                    }catch(e:Exception){
-                        Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show()
+                    val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
+                    Log.d("taget", isNew.toString())
+                    var name :String? = null
+                    val phno = binding.phoneNumber.text.toString().trim()
+                    if(isNew == true) {
+                        try{
+                            val b = DialogViewBinding.inflate(layoutInflater)
+                            /*val mDialogView = LayoutInflater.from(this).inflate(b.root, null)*/
+
+                            val mBuilder = AlertDialog.Builder(this)
+                                .setView(b.root)
+                                .setTitle("Login Form")
+                                .setNegativeButton("Cancel",object : DialogInterface.OnClickListener{
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                                        dialog?.cancel()
+                                    }
+
+                                }).setPositiveButton("Continue",object : DialogInterface.OnClickListener{
+                                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                                        name = b.yourname.text.toString().trim()
+                                        val intent = Intent(this@PhoneAuthenticationActivity,MainActivity::class.java)
+                                        startActivity(intent)
+                                        Toast.makeText(this@PhoneAuthenticationActivity, "Welcome $phno", Toast.LENGTH_SHORT).show()
+                                        dialog?.dismiss()
+                                    }
+
+                                })
+                            mBuilder.show()
+
+                            addUserToDB(name.toString(),phno,mAuth.currentUser?.uid)
+                        }catch (e:Exception){
+                            Log.d("taget",e.toString())
+                        }
                     }
-                    Toast.makeText(this, "Welcome $phNo", Toast.LENGTH_SHORT).show()
+
+
+
                 } else {
                     Log.d("taget",task.exception.toString())
                     Toast.makeText(

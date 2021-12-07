@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
 import com.complete.convo.activities.ChatActivity
+import com.complete.convo.activities.MainActivity
 
 import com.complete.convo.databinding.UserLayoutBinding
 import com.complete.convo.model.User
@@ -35,7 +36,6 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
 
         holder.v.setOnClickListener {
             val intent = Intent(context,ChatActivity::class.java)
-
             intent.putExtra("name", currentUser.name)
             intent.putExtra("uid", currentUser.uid)
 

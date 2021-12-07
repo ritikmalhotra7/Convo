@@ -10,9 +10,11 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,27 +37,50 @@ class MainActivity : AppCompatActivity() {
     private lateinit var uri:Uri
     private lateinit var dbReference : DatabaseReference
 
+    lateinit var toggle : ActionBarDrawerToggle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        toggle = ActionBarDrawerToggle(this,binding.drawerlayout,R.string.open,R.string.close)
+        binding.drawerlayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.navView.setNavigationItemSelectedListener{
+            when(it.itemId){
+                R.id.item1 ->Toast.makeText(this,"this",Toast.LENGTH_SHORT).show()
+            }
+            true
+
+        }
+
         mAuth = FirebaseAuth.getInstance()
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+
 
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         uri = Uri.parse(sharedPref.getString("imageUri","/"))
         binding.imageview.setImageURI(uri)
 
+
+        binding.fab.setOnClickListener {
+            val intent = Intent(this,AllUsers::class.java)
+            startActivity(intent)
+        }
+        val senderUid = mAuth.currentUser?.uid
+
         dbReference.child("user").addValueEventListener(object: ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
-                    userList.clear()
+                userList.clear()
                 for(snap in snapshot.children){
                     val currentUser = snap.getValue(User::class.java)
                     if(mAuth.currentUser?.uid != currentUser?.uid){
@@ -70,10 +95,27 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        binding.fab.setOnClickListener {
-            val intent = Intent(this,AllUsers::class.java)
-            startActivity(intent)
-        }
+    /*for(e in userList){
+            Toast.makeText(this,"hello",Toast.LENGTH_SHORT).show()
+            Log.d("taget",e.toString())
+            var recieverUid = e.uid
+            var senderRoom = recieverUid + senderUid
+            dbReference.child("chats").child(senderRoom!!).child("messages").addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    Log.d("taget",snapshot.toString())
+                   *//* if(snapshot.exists()){
+
+                    }*//*
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        }*/
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -81,6 +123,9 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
         when(item.itemId) {
             R.id.logout -> {
                 mAuth.signOut()
