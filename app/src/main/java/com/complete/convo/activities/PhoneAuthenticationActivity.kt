@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
 
 import android.widget.Toast
@@ -68,6 +69,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             binding.phoneNumber.isEnabled = false
 
             login()
+            binding.progress.visibility = View.VISIBLE
         }
         binding.verify.setOnClickListener{
             val otp=binding.otp.text.toString().trim()
@@ -104,6 +106,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                binding.progress.visibility = View.INVISIBLE
                 Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
@@ -113,9 +116,11 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        binding.progress.visibility = View.VISIBLE
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
                     val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
                     Log.d("taget", isNew.toString())
                     phone = binding.phoneNumber.text.toString().trim()
@@ -134,12 +139,14 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                                 }).setPositiveButton("Continue",object : DialogInterface.OnClickListener{
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
                                         name = b.yourname.text.toString().trim()
+                                        addUserToDB(name,phone,mAuth.currentUser?.uid)
                                         val intent = Intent(this@PhoneAuthenticationActivity,MainActivity::class.java)
                                         startActivity(intent)
-                                        Toast.makeText(this@PhoneAuthenticationActivity, "Welcome $phone", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@PhoneAuthenticationActivity, "Welcome $name", Toast.LENGTH_SHORT).show()
                                         dialog?.dismiss()
                                     }
                                 })
+                            binding.progress.visibility = View.INVISIBLE
                             mBuilder.show()
                         }catch (e:Exception){
                             Log.d("taget",e.toString())
@@ -152,6 +159,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                         binding.phoneNumber.isEnabled = true
                         val intent = Intent(this@PhoneAuthenticationActivity,MainActivity::class.java)
                         startActivity(intent)
+                        binding.progress.visibility = View.INVISIBLE
                     }
 
 
@@ -162,6 +170,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                         baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
+                    binding.progress.visibility = View.INVISIBLE
                 }
             }
     }
@@ -173,12 +182,14 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             number = "+91$number"
             sendVerificationCode(number)
 
+
         } else {
             Toast.makeText(this, "Enter mobile number", Toast.LENGTH_SHORT).show()
             binding.verify.isEnabled = false
             binding.otp.isEnabled = false
             binding.loginBtn.isEnabled = true
             binding.phoneNumber.isEnabled = true
+
         }
     }
 

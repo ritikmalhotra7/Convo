@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.complete.convo.databinding.ActivitySignupBinding
 import com.complete.convo.model.User
@@ -29,6 +30,7 @@ class SignupActivity : AppCompatActivity() {
 
         binding.signupbutton.setOnClickListener {
             viaEmail()
+
             binding.name.isEnabled = false
             binding.password.isEnabled = false
             binding.emailid.isEnabled = false
@@ -40,24 +42,24 @@ class SignupActivity : AppCompatActivity() {
         val email = binding.emailid.text.toString()
         val password = binding.password.text.toString()
         if(!TextUtils.isEmpty(binding.emailid.text.toString()) && !TextUtils.isEmpty(binding.password.text.toString())){
+            binding.progress.visibility = View.VISIBLE
             mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        addUserToDbViaEmail(name,email, mAuth.currentUser?.uid.toString())
-                        val intent = Intent(this,MainActivity::class.java)
-                        startActivity(intent)
-                        Toast.makeText(this, "Welcome $name", Toast.LENGTH_SHORT).show()
+                        checkEmail()
                     } else {
                         Log.d("taget",task.exception.toString())
                         Toast.makeText(
                             baseContext, "Authentication failed.",
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding.progress.visibility = View.INVISIBLE
                     }
                 }.addOnFailureListener {
                     binding.name.isEnabled = true
                     binding.password.isEnabled = true
                     binding.emailid.isEnabled = true
+                    binding.progress.visibility = View.INVISIBLE
                 }
         }else{
             Toast.makeText(this , "Please Enter Something", Toast.LENGTH_SHORT).show()
@@ -70,5 +72,25 @@ class SignupActivity : AppCompatActivity() {
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .reference
         dbReference.child("user").child(uid).setValue(User(name,email,uid))
+    }
+    private fun checkEmail(){
+        val firebaseUser = mAuth?.currentUser
+        val name = binding.name.text.toString().trim()
+        firebaseUser?.sendEmailVerification()?.addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                Toast.makeText(this,"Verification mail sent",Toast.LENGTH_SHORT).show()
+                mAuth?.signOut()
+                finish()
+                var intent = Intent(this,LoginActivity::class.java)
+                intent.putExtra("name",name)
+                startActivity(intent)
+                binding.progress.visibility = View.INVISIBLE
+
+            }else{
+                Toast.makeText(this,"error occured",Toast.LENGTH_SHORT).show()
+                binding.progress.visibility = View.INVISIBLE
+            }
+
+        }
     }
 }

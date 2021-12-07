@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
         android:layout_margin="20sp"
+        android:id="@+id/loginll"
         android:orientation="horizontal"
         android:weightSum="30">
 
@@ -71,6 +72,13 @@
             android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginll"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@+id/progress"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

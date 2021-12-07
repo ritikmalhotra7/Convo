@@ -3,10 +3,16 @@ package com.complete.convo.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.complete.convo.databinding.ActivityLoginBinding
+import com.complete.convo.model.User
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class LoginActivity : AppCompatActivity() {
 
@@ -14,6 +20,9 @@ class LoginActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var mAuth : FirebaseAuth
+    private lateinit var dbReference : DatabaseReference
+    private var isVerified = false
+    private var vemail = false
 
 
 
@@ -43,24 +52,32 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(email: String, password: String) {
         if(!TextUtils.isEmpty(binding.emailid.text.toString()) && !TextUtils.isEmpty(binding.password.text.toString())){
-            mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        val intent = Intent(this,MainActivity::class.java)
-                        finish()
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+           binding.progress.visibility = View.VISIBLE
+                mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            verifyEmail(email)
+                            val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
+                            if(isNew!!){
+                                var name = intent.getStringExtra("name")
+                                addUserToDbViaEmail(name!!,email, mAuth.currentUser!!.uid)
+                            }
+                            binding.progress.visibility = View.INVISIBLE
+                            finish()
+                            startActivity(Intent(this,MainActivity::class.java))
+                        } else {
+                           Snackbar.make(binding.root,"seems like you have entered wrong inputs!",Snackbar.LENGTH_SHORT).show()
+                            binding.progress.visibility = View.INVISIBLE
+                        }
                     }
-                }
+
         }else{
             Toast.makeText(this , "Please Enter Something", Toast.LENGTH_SHORT).show()
         }
     }
 
 
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         val mAuth = FirebaseAuth.getInstance().currentUser
         if(mAuth != null){
@@ -68,7 +85,21 @@ class LoginActivity : AppCompatActivity() {
         }else{
             super.onStart()
         }
-        //create sharedPrefrences store uid when user login /sign up ,remove uid on logout
 
+
+    }*/
+    fun verifyEmail(email: String){
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val vemail = firebaseUser?.isEmailVerified
+        if(vemail!!){
+        }else{
+            Toast.makeText(this,"please Verify",Toast.LENGTH_SHORT).show()
+            mAuth.signOut()
+        }
+    }
+    private fun addUserToDbViaEmail(name : String, email :String, uid : String) {
+        dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
+            .reference
+        dbReference.child("user").child(email).setValue(User(name,email,uid))
     }
 }
