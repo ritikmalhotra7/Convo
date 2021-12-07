@@ -35,10 +35,12 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
 
     private var _binding : ActivityPhoneAuthenticationBinding? = null
     private val binding get() = _binding!!
+    private lateinit var name : String
+    private lateinit var phone : String
     private lateinit var mAuth: FirebaseAuth
     lateinit var storedVerificationId: String
     private lateinit var db : DatabaseReference
-    lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,9 +50,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
-
         val login = binding.loginBtn
-
 
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
@@ -84,6 +84,8 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                addUserToDB(name,phone,mAuth
+                    .currentUser?.uid)
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
@@ -102,8 +104,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-
-                Log.d("TAG", "onCodeSent:$verificationId YYYYYYY $resendToken")
+                Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
             }
@@ -117,8 +118,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
                     Log.d("taget", isNew.toString())
-                    var name :String? = null
-                    val phno = binding.phoneNumber.text.toString().trim()
+                    phone = binding.phoneNumber.text.toString().trim()
                     if(isNew == true) {
                         try{
                             val b = DialogViewBinding.inflate(layoutInflater)
@@ -131,23 +131,27 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
                                         dialog?.cancel()
                                     }
-
                                 }).setPositiveButton("Continue",object : DialogInterface.OnClickListener{
                                     override fun onClick(dialog: DialogInterface?, which: Int) {
                                         name = b.yourname.text.toString().trim()
                                         val intent = Intent(this@PhoneAuthenticationActivity,MainActivity::class.java)
                                         startActivity(intent)
-                                        Toast.makeText(this@PhoneAuthenticationActivity, "Welcome $phno", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@PhoneAuthenticationActivity, "Welcome $phone", Toast.LENGTH_SHORT).show()
                                         dialog?.dismiss()
                                     }
-
                                 })
                             mBuilder.show()
-
-                            addUserToDB(name.toString(),phno,mAuth.currentUser?.uid)
                         }catch (e:Exception){
                             Log.d("taget",e.toString())
+
                         }
+                    }else{
+                        binding.verify.isEnabled = false
+                        binding.otp.isEnabled = false
+                        binding.loginBtn.isEnabled = true
+                        binding.phoneNumber.isEnabled = true
+                        val intent = Intent(this@PhoneAuthenticationActivity,MainActivity::class.java)
+                        startActivity(intent)
                     }
 
 
@@ -175,7 +179,6 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             binding.otp.isEnabled = false
             binding.loginBtn.isEnabled = true
             binding.phoneNumber.isEnabled = true
-
         }
     }
 

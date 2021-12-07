@@ -88,7 +88,13 @@ class ChatActivity : AppCompatActivity() {
             val c = Calendar.getInstance()
             val hour = c.get(Calendar.HOUR_OF_DAY)
             val minute = c.get(Calendar.MINUTE)
-            val timeStamp = "$hour:$minute"
+            var timeStamp = ""
+            if(minute<10){
+                 timeStamp = "$hour:0$minute"
+            }else{
+                 timeStamp = "$hour:$minute"
+            }
+
             val messageObject = Messages(message,timeStamp , senderUid)
 
             if (message.isNotEmpty()) {
