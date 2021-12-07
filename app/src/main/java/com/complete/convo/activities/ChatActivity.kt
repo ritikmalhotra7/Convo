@@ -86,13 +86,28 @@ class ChatActivity : AppCompatActivity() {
         binding.send.setOnClickListener {
             val message = binding.messageBox.text.toString()
             val c = Calendar.getInstance()
-            val hour = c.get(Calendar.HOUR_OF_DAY)
+            var hour = c.get(Calendar.HOUR_OF_DAY)
             val minute = c.get(Calendar.MINUTE)
             var timeStamp = ""
-            if(minute<10){
-                 timeStamp = "$hour:0$minute"
+            var am = "am"
+            if(minute<10 ){
+                if(hour == 0){
+                    hour = 12
+                }
+                if(hour>12){
+                    hour -=12
+                    am = "pm"
+                }
+                 timeStamp = "$hour:0$minute $am"
             }else{
-                 timeStamp = "$hour:$minute"
+                if(hour == 0){
+                    hour = 12
+                }
+                if(hour>12){
+                    hour -=12
+                    am = "pm"
+                }
+                 timeStamp = "$hour:$minute $am"
             }
 
             val messageObject = Messages(message,timeStamp , senderUid)
