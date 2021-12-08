@@ -15,9 +15,8 @@ import com.google.firebase.database.FirebaseDatabase
 
 class SignupActivity : AppCompatActivity() {
 
-    private var _binding : ActivitySignupBinding? = null
-    private val binding get() = _binding!!
-
+    private  var _binding : ActivitySignupBinding? = null
+    private  val binding get() = _binding!!
     private lateinit var mAuth : FirebaseAuth
     private lateinit var dbReference : DatabaseReference
 
@@ -26,8 +25,6 @@ class SignupActivity : AppCompatActivity() {
         _binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mAuth = FirebaseAuth.getInstance()
-
-
         binding.signupbutton.setOnClickListener {
             viaEmail()
 
@@ -36,7 +33,6 @@ class SignupActivity : AppCompatActivity() {
             binding.emailid.isEnabled = false
         }
     }
-
     private fun viaEmail() {
         val name = binding.name.text.toString()
         val email = binding.emailid.text.toString()
@@ -64,10 +60,7 @@ class SignupActivity : AppCompatActivity() {
         }else{
             Toast.makeText(this , "Please Enter Something", Toast.LENGTH_SHORT).show()
         }
-
-
     }
-
     private fun addUserToDbViaEmail(name : String, email :String, uid : String) {
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .reference
@@ -81,7 +74,7 @@ class SignupActivity : AppCompatActivity() {
                 Toast.makeText(this,"Verification mail sent",Toast.LENGTH_SHORT).show()
                 mAuth?.signOut()
                 finish()
-                var intent = Intent(this,LoginActivity::class.java)
+                val intent = Intent(this,LoginActivity::class.java)
                 intent.putExtra("name",name)
                 startActivity(intent)
                 binding.progress.visibility = View.INVISIBLE

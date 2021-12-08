@@ -13,26 +13,21 @@ import com.google.firebase.database.*
 class AllUsers : AppCompatActivity() {
     private var _binding : ActivityAllUsersBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var userList:ArrayList<User>
     private lateinit var adapter : UserAdapter
-
     private lateinit var mAuth : FirebaseAuth
     private lateinit var dbReference : DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAllUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         mAuth = FirebaseAuth.getInstance()
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
-
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
         binding.recyclerViewforAll.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewforAll.adapter = adapter
         binding.recyclerViewforAll.setHasFixedSize(true)
-
         dbReference.child("user").addValueEventListener(object: ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -45,11 +40,9 @@ class AllUsers : AppCompatActivity() {
                 }
                 adapter.notifyDataSetChanged()
             }
-
             override fun onCancelled(error: DatabaseError) {
-
             }
-
-        })
+        }
+        )
     }
 }

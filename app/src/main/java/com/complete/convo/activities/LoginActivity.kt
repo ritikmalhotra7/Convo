@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                             verifyEmail(email)
                             val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
                             if(isNew!!){
-                                var name = intent.getStringExtra("name")
+                                val name = intent.getStringExtra("name")
                                 addUserToDbViaEmail(name!!,email, mAuth.currentUser!!.uid)
                             }
                             binding.progress.visibility = View.INVISIBLE
@@ -88,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     }*/
-    fun verifyEmail(email: String){
+    private fun verifyEmail(email: String){
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val vemail = firebaseUser?.isEmailVerified
         if(vemail!!){

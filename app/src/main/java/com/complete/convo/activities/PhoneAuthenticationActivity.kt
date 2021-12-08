@@ -132,20 +132,24 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                             val mBuilder = AlertDialog.Builder(this)
                                 .setView(b.root)
                                 .setTitle("Login Form")
-                                .setNegativeButton("Cancel",object : DialogInterface.OnClickListener{
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        dialog?.cancel()
-                                    }
-                                }).setPositiveButton("Continue",object : DialogInterface.OnClickListener{
-                                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                                        name = b.yourname.text.toString().trim()
-                                        addUserToDB(name,phone,mAuth.currentUser?.uid)
-                                        val intent = Intent(this@PhoneAuthenticationActivity,MainActivity::class.java)
-                                        startActivity(intent)
-                                        Toast.makeText(this@PhoneAuthenticationActivity, "Welcome $name", Toast.LENGTH_SHORT).show()
-                                        dialog?.dismiss()
-                                    }
-                                })
+                                .setNegativeButton("Cancel"
+                                ) { dialog, which -> dialog?.cancel() }
+                                .setPositiveButton("Continue"
+                                ) { dialog, which ->
+                                    name = b.yourname.text.toString().trim()
+                                    addUserToDB(name, phone, mAuth.currentUser?.uid)
+                                    val intent = Intent(
+                                        this@PhoneAuthenticationActivity,
+                                        MainActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                    Toast.makeText(
+                                        this@PhoneAuthenticationActivity,
+                                        "Welcome $name",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    dialog?.dismiss()
+                                }
                             binding.progress.visibility = View.INVISIBLE
                             mBuilder.show()
                         }catch (e:Exception){

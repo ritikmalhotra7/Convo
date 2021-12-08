@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/Theme.AppCompat"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activities.PhoneAuthenticationActivity">
+    android:layout_height="match_parent">
 
     <EditText
-        android:inputType="textEmailAddress"
+
         android:id="@+id/yourname"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@drawable/edit_bg"
-        android:hint="Enter Your Name"
-        android:padding="15dp"
-        android:autofillHints="name" />
-
-
+        android:layout_height="wrap_content"/>
 </LinearLayout>

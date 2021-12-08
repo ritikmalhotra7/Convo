@@ -15,7 +15,7 @@
     <string name="enter_otp">Enter OTP</string>
     <string name="verify">Verify</string>
     <string name="set_password">Set Password</string>
-    <string name="logout">Logout</string>
+
     <string name="wallpaper">Wallpaper</string>
     <string name="country_code">+91</string>
     <string name="enter_your_name">Enter your name</string>
@@ -38,5 +38,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="your_name">Your name</string>
+    <string name="logout">Logout</string>
+    <string name="wallpapers">wallpapers</string>
+    <string name="settings">settings</string>
+    <string name="phone_or_email">Phone or Email</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -2,7 +2,6 @@ package com.complete.convo.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.complete.convo.databinding.RecieveMessageBinding
