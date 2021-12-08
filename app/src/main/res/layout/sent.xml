@@ -15,10 +15,9 @@
         android:gravity="end"
         tools:ignore="UselessParent">
         <TextView
-            android:id="@+id/sentMessage"
             android:layout_width="wrap_content"
             android:paddingEnd="20sp"
-
+            android:id="@+id/sentMessage"
             android:layout_marginStart="10dp"
             android:layout_height="wrap_content"
             android:text="@string/sender_message"
@@ -30,10 +29,9 @@
 
             />
         <TextView
-            android:id="@+id/txtsTime"
             android:layout_marginStart="10dp"
             android:paddingEnd="30sp"
-
+            android:id="@+id/txtsTime"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

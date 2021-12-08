@@ -1,5 +1,6 @@
 package com.complete.convo.activities
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.complete.convo.R
 import com.complete.convo.databinding.ActivityLoginBinding
 import com.complete.convo.model.User
 import com.google.android.material.snackbar.Snackbar
@@ -24,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private var isVerified = false
     private var vemail = false
 
-
+    private lateinit var mProgressDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         binding.signUpButton.setOnClickListener {
-           val intent = Intent(this,SignupActivity::class.java)
+            val intent = Intent(this,SignupActivity::class.java)
             startActivity(intent)
         }
         binding.loginButton.setOnClickListener {
@@ -52,24 +54,24 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(email: String, password: String) {
         if(!TextUtils.isEmpty(binding.emailid.text.toString()) && !TextUtils.isEmpty(binding.password.text.toString())){
-           binding.progress.visibility = View.VISIBLE
-                mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            verifyEmail(email)
-                            val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
-                            if(isNew!!){
-                                val name = intent.getStringExtra("name")
-                                addUserToDbViaEmail(name!!,email, mAuth.currentUser!!.uid)
-                            }
-                            binding.progress.visibility = View.INVISIBLE
-                            finish()
-                            startActivity(Intent(this,MainActivity::class.java))
-                        } else {
-                           Snackbar.make(binding.root,"seems like you have entered wrong inputs!",Snackbar.LENGTH_SHORT).show()
-                            binding.progress.visibility = View.INVISIBLE
+            showProgressDialog()
+            mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        verifyEmail(email)
+                        val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
+                        if(isNew!!){
+                            val name = intent.getStringExtra("name")
+                            addUserToDbViaEmail(name!!,email, mAuth.currentUser!!.uid)
                         }
+                        hideProgressDialog()
+                        finish()
+                        startActivity(Intent(this,MainActivity::class.java))
+                    } else {
+                        Snackbar.make(binding.root,"seems like you have entered wrong inputs!",Snackbar.LENGTH_SHORT).show()
+                        hideProgressDialog()
                     }
+                }
 
         }else{
             Toast.makeText(this , "Please Enter Something", Toast.LENGTH_SHORT).show()
@@ -101,5 +103,20 @@ class LoginActivity : AppCompatActivity() {
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .reference
         dbReference.child("user").child(email).setValue(User(name,email,uid))
+    }
+
+    fun showProgressDialog() {
+        mProgressDialog = Dialog(this)
+
+
+        mProgressDialog.setContentView(R.layout.dialog_progress)
+
+
+        mProgressDialog.show()
+    }
+
+
+    fun hideProgressDialog() {
+        mProgressDialog.dismiss()
     }
 }

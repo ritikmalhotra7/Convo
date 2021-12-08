@@ -75,14 +75,14 @@
 <!--            android:contentDescription="@string/image"-->
 <!--            />-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/send"
+          android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabCustomSize="40dp"
             android:layout_weight="10"
             android:layout_marginStart="10sp"
             android:layout_gravity="end"
-            android:tint="@color/mycolor6"
+            android:tint="@color/myColor6"
             android:src="@drawable/ic_baseline_send_24"
             android:contentDescription="@string/sending_the_message"
             />

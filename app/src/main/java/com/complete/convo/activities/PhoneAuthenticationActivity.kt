@@ -1,5 +1,6 @@
 package com.complete.convo.activities
 
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,7 @@ import com.google.firebase.auth.AuthResult
 
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
+import com.complete.convo.R
 import com.complete.convo.databinding.DialogViewBinding
 
 import com.google.android.gms.tasks.OnCompleteListener
@@ -43,7 +45,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     private lateinit var db : DatabaseReference
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-
+    private lateinit var mProgressDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityPhoneAuthenticationBinding.inflate(layoutInflater)
@@ -69,7 +71,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             binding.phoneNumber.isEnabled = false
 
             login()
-            binding.progress.visibility = View.VISIBLE
+            showProgressDialog()
         }
         binding.verify.setOnClickListener{
             val otp=binding.otp.text.toString().trim()
@@ -106,7 +108,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                binding.progress.visibility = View.INVISIBLE
+                hideProgressDialog()
                 Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
@@ -116,7 +118,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        binding.progress.visibility = View.VISIBLE
+        showProgressDialog()
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -150,7 +152,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                                     ).show()
                                     dialog?.dismiss()
                                 }
-                            binding.progress.visibility = View.INVISIBLE
+                            hideProgressDialog()
                             mBuilder.show()
                         }catch (e:Exception){
                             Log.d("taget",e.toString())
@@ -163,7 +165,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                         binding.phoneNumber.isEnabled = true
                         val intent = Intent(this@PhoneAuthenticationActivity,MainActivity::class.java)
                         startActivity(intent)
-                        binding.progress.visibility = View.INVISIBLE
+                        hideProgressDialog()
                     }
 
 
@@ -174,7 +176,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                         baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
-                    binding.progress.visibility = View.INVISIBLE
+                    hideProgressDialog()
                 }
             }
     }
@@ -213,12 +215,19 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         db.child("user").child(name).setValue(User(name,phone,uid,phone))
 
     }
-    /*private fun addUserToDB(name: String, email: String, uid: String?) {
 
-        dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
-            .reference
-        dbReference.child("user").child(name).setValue(User(name,email,uid))
+    private fun showProgressDialog() {
+        mProgressDialog = Dialog(this)
 
-    }*/
 
+        mProgressDialog.setContentView(R.layout.dialog_progress)
+
+
+        mProgressDialog.show()
+    }
+
+
+    private fun hideProgressDialog() {
+        mProgressDialog.dismiss()
+    }
 }

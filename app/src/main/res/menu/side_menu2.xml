@@ -7,5 +7,6 @@
     <item
         android:id="@+id/profilePic"
         android:title="@string/my_profile"/>
+    <item android:title="@string/my_theme"/>
 
 </menu>

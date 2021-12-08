@@ -3,6 +3,7 @@ package com.complete.convo.activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,6 +11,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mAuth :FirebaseAuth
     private lateinit var uri:Uri
     private lateinit var dbReference : DatabaseReference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
+
             R.id.profilePic ->{
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED
@@ -164,5 +168,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show()
         }
     }
+
 
 }

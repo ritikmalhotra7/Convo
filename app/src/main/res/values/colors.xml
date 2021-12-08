@@ -8,8 +8,8 @@
     <color name="sea_green">#009688</color>
 
 
-    <color name ="mycolor6">#ffffff</color>
+    <color name ="myColor6">#ffffff</color>
     <color name="black">#000000</color>
 
-
+    <color name="primary_text_color">#363A43</color>
 </resources>

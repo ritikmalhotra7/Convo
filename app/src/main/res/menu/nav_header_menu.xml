@@ -2,8 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/logout"
         android:title="@string/logout"/>
-    <item android:id="@+id/wallpapers"
-        android:title="@string/wallpapers"/>
-    <item android:id="@+id/settings"
-        android:title="@string/settings"/>
+    <item android:title="@string/wallpapers"/>
+    <item android:title="@string/settings"/>
 </menu>

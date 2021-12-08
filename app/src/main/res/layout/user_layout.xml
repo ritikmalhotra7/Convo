@@ -30,7 +30,6 @@
             android:paddingStart="5dp"
             android:paddingEnd="12dp" />
         <TextView
-            android:id="@+id/numboremail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#828282"

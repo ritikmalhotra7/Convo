@@ -1,7 +1,7 @@
 package com.complete.convo.activities
 
 import android.annotation.SuppressLint
-import android.app.Activity
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -13,22 +13,18 @@ import com.complete.convo.model.Messages
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.sql.Timestamp
+
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ChatActivity : AppCompatActivity() {
     private var _binding : ActivityChatBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var mAdapter : MessagesAdapter
-    private lateinit var messageList : ArrayList<Messages>
-
     private var senderRoom : String? = null
     private var recieverRoom : String?= null
-
     private lateinit var dbReference : DatabaseReference
-
+    private lateinit var mAdapter : MessagesAdapter
+    private lateinit var messageList : ArrayList<Messages>
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +44,6 @@ class ChatActivity : AppCompatActivity() {
 
         senderRoom = recieverUid + senderUid
         recieverRoom = senderUid + recieverUid
-
-
         binding.toolbar.title = recieversName
         setSupportActionBar(binding.toolbar)
 
@@ -128,8 +122,6 @@ class ChatActivity : AppCompatActivity() {
         }
 
     }
-
-
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
