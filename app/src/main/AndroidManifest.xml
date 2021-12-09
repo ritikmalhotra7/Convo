@@ -52,6 +52,9 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="true" />
+
+
+
     </application>
 
 </manifest>
