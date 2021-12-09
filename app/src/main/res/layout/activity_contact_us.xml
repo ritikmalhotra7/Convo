@@ -5,34 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/item_board_content_marginBottom"
-    android:background="?attr/selectableItemBackground"
+    android:background="#1F2C35"
     android:orientation="vertical">
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:theme="@style/Theme.Convo.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Convo.PopupOverlay" />
 
-    </com.google.android.material.appbar.AppBarLayout>
-    <TextView
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/primary_text_color"
-        android:textSize="25sp"
-        android:layout_marginTop="10dp"
-        tools:text="Our Team"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:textStyle="bold"
-        android:textAllCaps="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,21 +30,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_name_text_size"
-                android:text="@string/ritik_malhotra" />
+                tools:text="Ritik Malhotra" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_created_by_text_size"
                 tools:text="ritikmalhotra7@gmail.com" />
         </LinearLayout>
@@ -92,7 +66,7 @@
             android:layout_width="@dimen/item_board_image_size"
             android:layout_height="@dimen/item_board_image_size"
             android:contentDescription="@string/image"
-            android:src="@drawable/abhi"
+            android:src="@drawable/abhishek"
             app:civ_border_color="@color/primary_text_color"
             app:civ_border_width="@dimen/item_board_image_circular_border_width" />
 
@@ -100,23 +74,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_name_text_size"
-                android:text="@string/abhishek_gairola" />
+                tools:text="Abhishek Gairola" />
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_created_by_text_size"
                 tools:text="gairolabhi80@gmail.com" />
         </LinearLayout>
@@ -147,25 +119,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_name_text_size"
-                android:text="@string/nupur_aggarwal" />
+                tools:text="Nupur Aggarwal" />
 
             <TextView
                 android:id="@+id/tv_created_by"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_created_by_text_size"
-                tools:text="Nupuraggarwal1502@gmail.com" />
+                tools:text="nupuraggarwal1502@gmail.com" />
         </LinearLayout>
     </LinearLayout>
 
@@ -190,25 +160,22 @@
             app:civ_border_width="@dimen/item_board_image_circular_border_width" />
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/primary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_name_text_size"
-                android:text="@string/prateek_arora" />
+                tools:text="Prateek Arora" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/item_board_created_by_text_size"
                 tools:text="aroraprateek700@gmail.com" />
         </LinearLayout>
