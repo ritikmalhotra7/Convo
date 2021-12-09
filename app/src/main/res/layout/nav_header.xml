@@ -8,6 +8,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
+        android:id="@+id/yourpicture"
         android:src="@drawable/undraw_profile_pic_ic5t"
         app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"

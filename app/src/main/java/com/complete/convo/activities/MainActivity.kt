@@ -10,8 +10,10 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
@@ -20,12 +22,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.complete.convo.R
 import com.complete.convo.adapters.UserAdapter
 import com.complete.convo.databinding.ActivityMainBinding
+import com.complete.convo.databinding.NavHeaderBinding
 import com.complete.convo.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
+    private var clicked: Boolean = false
     private var _binding : ActivityMainBinding? = null
     private val binding get() = _binding!!
 
@@ -69,7 +73,28 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navView.setNavigationItemSelectedListener{
             when(it.itemId){
-                R.id.item1 ->Toast.makeText(this,"this",Toast.LENGTH_SHORT).show()
+                R.id.logout ->{
+                    mAuth.signOut()
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    finish()
+                    startActivity(intent)
+                }
+                R.id.yourpicture ->{
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        showImageChooser()
+                    } else {
+
+                        ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            READ_STORAGE_PERMISSION_CODE
+                        )
+                    }
+
+                }
+
             }
             true
 
@@ -108,19 +133,14 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         when(item.itemId) {
-            R.id.logout -> {
-                mAuth.signOut()
-                val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                finish()
-                startActivity(intent)
-
-                return true
-            }
             R.id.wallpaper ->{
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED
                 ) {
                     showImageChooser()
+                    clicked = true
+                    val b = NavHeaderBinding.inflate(layoutInflater)
+                    b.yourpicture.setImageURI(uri)
                 } else {
 
                     ActivityCompat.requestPermissions(
@@ -135,21 +155,7 @@ class MainActivity : AppCompatActivity() {
                 val intent=Intent(this,ContactUs::class.java)
                 startActivity(intent)
             }
-            R.id.profilePic ->{
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED
-                ) {
-                    showImageChooser()
-                } else {
 
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        READ_STORAGE_PERMISSION_CODE
-                    )
-                }
-
-            }
         }
         return true
     }

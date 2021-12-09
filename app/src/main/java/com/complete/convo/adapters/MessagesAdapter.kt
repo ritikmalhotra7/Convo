@@ -38,19 +38,6 @@ class MessagesAdapter(val context : Context, private val messageList : ArrayList
         if(holder.javaClass == SentHolder::class.java){
             val viewHolder = holder as SentHolder
             holder.sentMessage.text = currentMessage.message
-            /*var sdf:SimpleDateFormat = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())*/
-            /*dbReference.child("chats").child(mAuth.currentUser?.uid!!).child("messages").addValueEventListener(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                   for(snap in snapshot.children){
-                       var message = snap.getValue(Messages::class.java)
-                       if(message)
-                   }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                }
-
-            })*/
             holder.txt.text = currentMessage.time
 
 

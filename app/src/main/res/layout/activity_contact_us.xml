@@ -3,188 +3,209 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/item_board_content_marginBottom"
     android:background="#1F2C35"
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp"
-        android:padding="@dimen/item_board_content_padding">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-
-            android:layout_width="@dimen/item_board_image_size"
-            android:layout_height="@dimen/item_board_image_size"
-            android:contentDescription="@string/image"
-            android:src="@drawable/ritik"
-            app:civ_border_color="@color/primary_text_color"
-            app:civ_border_width="@dimen/item_board_image_circular_border_width" />
-
+        android:layout_height="80dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/item_board_content_padding">
 
-            <TextView
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="@dimen/item_board_image_size"
+                android:layout_height="@dimen/item_board_image_size"
+                android:contentDescription="@string/image"
+                android:src="@drawable/ritik"
+                app:civ_border_color="@color/primary_text_color"
+                app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_name_text_size"
-                tools:text="Ritik Malhotra" />
+                android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_created_by_text_size"
-                tools:text="ritikmalhotra7@gmail.com" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/item_board_name_text_size"
+                    tools:text="Ritik Malhotra" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/item_board_created_by_text_size"
+                    tools:text="ritikrkmalhotra@gmail.com" />
+            </LinearLayout>
+
         </LinearLayout>
-    </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_board_divider_height"
+        android:background="@color/divider_color" />
+
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="80dp">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center_vertical"
+           android:orientation="horizontal"
+           android:padding="@dimen/item_board_content_padding">
+
+           <de.hdodenhof.circleimageview.CircleImageView
+
+               android:layout_width="@dimen/item_board_image_size"
+               android:layout_height="@dimen/item_board_image_size"
+               android:contentDescription="@string/image"
+               android:src="@drawable/abhishek"
+               app:civ_border_color="@color/primary_text_color"
+               app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
+               android:orientation="vertical">
+
+               <TextView
+
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/item_board_name_text_size"
+                   tools:text="Abhishek Gairola" />
+
+               <TextView
+
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/item_board_created_by_text_size"
+                   tools:text="gairolabhi80@gmail.com" />
+           </LinearLayout>
+       </LinearLayout>
+   </androidx.cardview.widget.CardView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_board_divider_height"
-        android:layout_marginTop="@dimen/item_board_divider_marginTop"
         android:background="@color/divider_color" />
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="80dp">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center_vertical"
+           android:orientation="horizontal"
+           android:padding="@dimen/item_board_content_padding">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/item_board_content_padding">
+           <de.hdodenhof.circleimageview.CircleImageView
+               android:id="@+id/iv_board_image"
+               android:layout_width="@dimen/item_board_image_size"
+               android:layout_height="@dimen/item_board_image_size"
+               android:contentDescription="@string/image"
+               android:src="@drawable/ic_board_place_holder"
+               app:civ_border_color="@color/primary_text_color"
+               app:civ_border_width="@dimen/item_board_image_circular_border_width" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
+               android:orientation="vertical">
 
-            android:layout_width="@dimen/item_board_image_size"
-            android:layout_height="@dimen/item_board_image_size"
-            android:contentDescription="@string/image"
-            android:src="@drawable/abhishek"
-            app:civ_border_color="@color/primary_text_color"
-            app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+               <TextView
+                   android:id="@+id/tv_name"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/item_board_name_text_size"
+                   tools:text="Nupur Aggarwal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical">
-
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_name_text_size"
-                tools:text="Abhishek Gairola" />
-
-            <TextView
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_created_by_text_size"
-                tools:text="gairolabhi80@gmail.com" />
-        </LinearLayout>
-    </LinearLayout>
+               <TextView
+                   android:id="@+id/tv_created_by"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/white"
+                   android:textSize="@dimen/item_board_created_by_text_size"
+                   tools:text="nupuraggarwal1502@gmail.com" />
+           </LinearLayout>
+       </LinearLayout>
+   </androidx.cardview.widget.CardView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_board_divider_height"
-        android:layout_marginTop="@dimen/item_board_divider_marginTop"
         android:background="@color/divider_color" />
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/item_board_content_padding">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_board_image"
-            android:layout_width="@dimen/item_board_image_size"
-            android:layout_height="@dimen/item_board_image_size"
-            android:contentDescription="@string/image"
-            android:src="@drawable/ic_board_place_holder"
-            app:civ_border_color="@color/primary_text_color"
-            app:civ_border_width="@dimen/item_board_image_circular_border_width" />
-
+        android:layout_height="80dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/item_board_content_padding">
 
-            <TextView
-                android:id="@+id/tv_name"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/item_board_image_size"
+                android:layout_height="@dimen/item_board_image_size"
+                android:contentDescription="@string/image"
+                android:src="@drawable/ic_board_place_holder"
+                app:civ_border_color="@color/primary_text_color"
+                app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_name_text_size"
-                tools:text="Nupur Aggarwal" />
+                android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_created_by"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_created_by_text_size"
-                tools:text="nupuraggarwal1502@gmail.com" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/item_board_name_text_size"
+                    tools:text="Prateek Arora" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/item_board_created_by_text_size"
+                    tools:text="aroraprateek700@gmail.com" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_board_divider_height"
-        android:layout_marginTop="@dimen/item_board_divider_marginTop"
         android:background="@color/divider_color" />
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/item_board_content_padding">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/item_board_image_size"
-            android:layout_height="@dimen/item_board_image_size"
-            android:contentDescription="@string/image"
-            android:src="@drawable/ic_board_place_holder"
-            app:civ_border_color="@color/primary_text_color"
-            app:civ_border_width="@dimen/item_board_image_circular_border_width" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_name_text_size"
-                tools:text="Prateek Arora" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/item_board_created_by_text_size"
-                tools:text="aroraprateek700@gmail.com" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_board_divider_height"
-        android:layout_marginTop="@dimen/item_board_divider_marginTop"
-        android:background="@color/divider_color" />
+        android:layout_gravity="center"
+        android:text="Help us grow!"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/white"/>
 
 </LinearLayout>
