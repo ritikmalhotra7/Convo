@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
     implementation 'com.google.firebase:firebase-messaging:23.0.0'
-    implementation 'com.github.Shashank02051997:FancyAboutPage-Android:2.6'
+
 
 }
 apply plugin: 'com.android.application'
