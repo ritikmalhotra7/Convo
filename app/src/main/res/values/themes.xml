@@ -19,6 +19,15 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="OverlayPrimaryColorRed">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/dred</item>
+    </style>
+
+    <style name="OverlayPrimaryColorBlue">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dblue</item>
+    </style>
 
     <style name="Theme.Convo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

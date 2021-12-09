@@ -6,10 +6,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
     <color name="sea_green">#009688</color>
-
-
-    <color name ="myColor6">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="dred">#550000</color>
+    <color name="blue">#00BBFF</color>
+    <color name="dblue">#3F51B5</color>
 
-    <color name="primary_text_color">#363A43</color>
+
+
 </resources>

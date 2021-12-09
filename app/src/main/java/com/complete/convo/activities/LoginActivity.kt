@@ -2,6 +2,7 @@ package com.complete.convo.activities
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -50,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this,PhoneAuthenticationActivity::class.java))
             finish()
         }
+        setTheme(R.style.OverlayPrimaryColorRed)
     }
 
     private fun login(email: String, password: String) {

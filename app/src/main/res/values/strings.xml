@@ -36,5 +36,7 @@
     <string name="phone_or_email">Phone or Email</string>
     <string name="my_theme">My Theme</string>
     <string name="please_wait">Please Wait</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

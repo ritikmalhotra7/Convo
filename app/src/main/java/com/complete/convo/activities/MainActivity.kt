@@ -15,6 +15,7 @@ import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mAuth :FirebaseAuth
     private lateinit var uri:Uri
     private lateinit var dbReference : DatabaseReference
+    lateinit var toggle : ActionBarDrawerToggle
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,19 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         uri = Uri.parse(sharedPref.getString("imageUri","/"))
         binding.imageview.setImageURI(uri)
+
+        toggle = ActionBarDrawerToggle(this,binding.drawerlayout,R.string.open,R.string.close)
+        binding.drawerlayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.navView.setNavigationItemSelectedListener{
+            when(it.itemId){
+                R.id.item1 ->Toast.makeText(this,"this",Toast.LENGTH_SHORT).show()
+            }
+            true
+
+        }
 
         dbReference.child("user").addValueEventListener(object: ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
@@ -84,6 +99,9 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
         when(item.itemId) {
             R.id.logout -> {
                 mAuth.signOut()

@@ -82,7 +82,7 @@
             android:layout_weight="10"
             android:layout_marginStart="10sp"
             android:layout_gravity="end"
-            android:tint="@color/myColor6"
+            android:tint="@color/white"
             android:src="@drawable/ic_baseline_send_24"
             android:contentDescription="@string/sending_the_message"
             />
