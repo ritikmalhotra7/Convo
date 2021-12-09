@@ -61,6 +61,13 @@ class MainActivity : AppCompatActivity() {
         binding.drawerlayout.addDrawerListener(toggle)
         toggle.syncState()
 
+
+        binding.search.setOnClickListener{
+            val open = Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"))
+            startActivity(open)
+        }
+
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navView.setNavigationItemSelectedListener{
             when(it.itemId){
@@ -126,7 +133,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-
+            R.id.contact ->{
+                val intent=Intent(this,ContactUs::class.java)
+                startActivity(intent)
+            }
             R.id.profilePic ->{
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED

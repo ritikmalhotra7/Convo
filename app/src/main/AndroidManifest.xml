@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Convo">
         <activity
+            android:name=".activities.ContactUs"
+            android:exported="true" />
+        <activity
             android:name=".activities.PhoneNewUser"
             android:exported="true"
             android:theme="@style/Theme.Convo.NoActionBar"
@@ -52,9 +55,6 @@
         <activity
             android:name=".activities.MainActivity"
             android:exported="true" />
-
-
-
     </application>
 
 </manifest>

@@ -51,29 +51,13 @@
             android:drawablePadding="2dp"
             android:background="@drawable/edit_bg"
             android:paddingStart="10dp"
+            android:layout_marginStart="25dp"
             android:paddingEnd="12dp"
             android:singleLine="true"
             android:inputType="text"
             android:hint="@string/type_your_message_here"
             android:importantForAutofill="no" />
-<!--        <ImageView-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:src="@drawable/send"-->
-<!--            android:layout_weight="5"-->
-<!--            android:padding="1dp"-->
-<!--            android:id="@+id/send"-->
-<!--            android:contentDescription="@string/image"-->
-<!--            app:tint="@color/sea_green" />-->
-<!--        <Button-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:src="@drawable/ic_baseline_send_24"-->
 
-<!--            -->
-<!--            android:id="@+id/send"-->
-<!--            android:contentDescription="@string/image"-->
-<!--            />-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
           android:id="@+id/send"
             android:layout_width="wrap_content"
@@ -86,8 +70,10 @@
             android:src="@drawable/ic_baseline_send_24"
             android:contentDescription="@string/sending_the_message"
             />
-    </LinearLayout>
 
+
+
+    </LinearLayout>
 
 
 
