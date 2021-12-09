@@ -3,7 +3,6 @@ package com.complete.convo.activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,7 +10,6 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
