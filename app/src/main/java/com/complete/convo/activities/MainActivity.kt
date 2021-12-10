@@ -151,6 +151,23 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
+            R.id.profilePic -> {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED
+                ) {
+                    showImageChooser()
+                    clicked = true
+                    val b = NavHeaderBinding.inflate(layoutInflater)
+                    b.yourpicture.setImageURI(uri)
+                } else {
+
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        READ_STORAGE_PERMISSION_CODE
+                    )
+                }
+            }
             R.id.contact ->{
                 val intent=Intent(this,ContactUs::class.java)
                 startActivity(intent)

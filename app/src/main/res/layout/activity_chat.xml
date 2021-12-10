@@ -29,52 +29,60 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+
         app:layout_constraintBottom_toTopOf="@+id/llll"
         android:layout_marginEnd="5dp"
+        android:layout_marginBottom="12dp"
         app:stackFromEnd="true" />
 
     <LinearLayout
+        android:id="@+id/llll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:padding="10dp"
-        android:id="@+id/llll"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="100"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="5dp">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/searchInChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/image"
+            android:elevation="20dp"
+            android:layout_weight="10"
+            app:fabCustomSize="49dp"
+            android:src="@drawable/ic_baseline_search_24"
+            android:tint="@color/white" />
         <EditText
             android:id="@+id/messageBox"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="-10dp"
             android:layout_weight="100"
-            android:drawableStart="@drawable/thinking"
-            android:drawablePadding="2dp"
             android:background="@drawable/edit_bg"
-            android:paddingStart="10dp"
-            android:layout_marginStart="25dp"
-            android:paddingEnd="12dp"
-            android:singleLine="true"
+            android:drawablePadding="2dp"
+            android:hint="  Enter Your Message  "
+            android:importantForAutofill="no"
             android:inputType="text"
-            android:hint="@string/type_your_message_here"
-            android:importantForAutofill="no" />
+            android:layout_marginEnd="-10dp"
+            android:singleLine="true" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-          android:id="@+id/send"
+            android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fabCustomSize="40dp"
-            android:layout_weight="10"
-            android:layout_marginStart="10sp"
             android:layout_gravity="end"
-            android:tint="@color/white"
-            android:src="@drawable/ic_baseline_send_24"
+            android:layout_marginStart="15sp"
             android:contentDescription="@string/sending_the_message"
-            />
-
-
+            android:src="@drawable/ic_baseline_send_24"
+            android:tint="@color/white"
+            android:layout_weight="10"
+            app:fabCustomSize="49dp" />
 
     </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
         val mAuth = FirebaseAuth.getInstance().currentUser
         if(mAuth != null){
@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-    }*/
+    }
     private fun verifyEmail(email: String){
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val vemail = firebaseUser?.isEmailVerified

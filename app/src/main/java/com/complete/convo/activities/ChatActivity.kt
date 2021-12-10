@@ -3,6 +3,7 @@ package com.complete.convo.activities
 import android.annotation.SuppressLint
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -76,6 +77,10 @@ class ChatActivity : AppCompatActivity() {
                 }
 
             })
+        binding.searchInChat.setOnClickListener{
+            val open = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/"))
+            startActivity(open)
+        }
         binding.send.setOnClickListener {
             val message = binding.messageBox.text.toString()
             val c = Calendar.getInstance()
@@ -120,11 +125,9 @@ class ChatActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
     }
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
     }
-
 }

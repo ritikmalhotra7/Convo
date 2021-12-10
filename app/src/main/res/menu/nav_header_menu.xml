@@ -4,4 +4,7 @@
         android:title="@string/logout"/>
     <item android:title="@string/wallpapers"/>
     <item android:title="@string/settings"/>
+    <item
+        android:id="@+id/profilePicDrawer"
+        android:title="@string/my_profile"/>
 </menu>
