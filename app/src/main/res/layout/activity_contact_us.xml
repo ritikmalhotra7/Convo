@@ -4,19 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/item_board_content_marginBottom"
+
     android:background="#1F2C35"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/Theme.Convo.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.Convo.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="80dp"
+        android:background="#1F2C35">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="#1F2C35"
             android:padding="@dimen/item_board_content_padding">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -67,6 +83,7 @@
            android:layout_height="wrap_content"
            android:gravity="center_vertical"
            android:orientation="horizontal"
+           android:background="#1F2C35"
            android:padding="@dimen/item_board_content_padding">
 
            <de.hdodenhof.circleimageview.CircleImageView
@@ -115,6 +132,7 @@
            android:layout_height="wrap_content"
            android:gravity="center_vertical"
            android:orientation="horizontal"
+           android:background="#1F2C35"
            android:padding="@dimen/item_board_content_padding">
 
            <de.hdodenhof.circleimageview.CircleImageView
@@ -163,6 +181,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="#1F2C35"
             android:padding="@dimen/item_board_content_padding">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -196,15 +215,15 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_board_divider_height"
-        android:background="@color/divider_color" />
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/item_board_divider_height"-->
+<!--        android:background="@color/divider_color" />-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Help us grow!"
+        android:text="@string/help_us_grow"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"/>
 

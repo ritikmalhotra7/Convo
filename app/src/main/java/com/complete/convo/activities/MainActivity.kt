@@ -217,6 +217,4 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }

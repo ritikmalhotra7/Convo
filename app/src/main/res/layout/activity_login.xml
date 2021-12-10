@@ -14,18 +14,19 @@
         android:layout_margin="10dp"
         android:background="@drawable/login"
         android:contentDescription="@string/image" />
+
     <EditText
-        android:inputType="textEmailAddress"
         android:id="@+id/emailid"
         android:layout_width="match_parent"
         android:layout_height="53dp"
+        android:layout_below="@+id/login_image"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="40dp"
-        android:layout_below="@+id/login_image"
+        android:autofillHints="emailAddress"
         android:background="@drawable/edit_bg"
         android:hint="@string/email"
-        android:padding="15dp"
-        android:autofillHints="emailAddress" />
+        android:inputType="textEmailAddress"
+        android:padding="15dp" />
 
     <EditText
         android:id="@+id/password"

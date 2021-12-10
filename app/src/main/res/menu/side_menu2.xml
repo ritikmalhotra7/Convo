@@ -8,7 +8,7 @@
         android:id="@+id/profilePic"
         android:title="@string/my_profile"/>
     <item android:id="@+id/contact"
-        android:title="Contact Us"/>
+        android:title="@string/contact_us"/>
     <item android:title="@string/my_theme"/>
 
 </menu>

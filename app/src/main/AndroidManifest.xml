@@ -15,7 +15,8 @@
         android:theme="@style/Theme.Convo">
         <activity
             android:name=".activities.ContactUs"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.Convo.NoActionBar"/>
         <activity
             android:name=".activities.PhoneNewUser"
             android:exported="true"

@@ -43,5 +43,8 @@
     <string name="nupur_aggarwal">Nupur Aggarwal</string>
     <string name="abhishek_gairola">Abhishek Gairola</string>
     <string name="enter_your_message"> Enter your Message</string>
+    <string name="message">Enter Your Message</string>
+    <string name="help_us_grow">Help us grow!</string>
+    <string name="contact_us">Contact Us</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
