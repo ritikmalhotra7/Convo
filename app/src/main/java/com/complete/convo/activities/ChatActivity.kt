@@ -77,10 +77,10 @@ class ChatActivity : AppCompatActivity() {
                 }
 
             })
-        binding.searchInChat.setOnClickListener{
+        /*binding.search.setOnClickListener{
             val open = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/"))
             startActivity(open)
-        }
+        }*/
         binding.send.setOnClickListener {
             val message = binding.messageBox.text.toString()
             val c = Calendar.getInstance()

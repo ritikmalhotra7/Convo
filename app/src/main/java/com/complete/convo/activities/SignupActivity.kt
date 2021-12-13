@@ -44,7 +44,7 @@ class SignupActivity : AppCompatActivity() {
             mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        checkEmail()
+                        checkEmail(email)
                     } else {
                         Log.d("taget",task.exception.toString())
                         Toast.makeText(
@@ -70,15 +70,16 @@ class SignupActivity : AppCompatActivity() {
             .reference
         dbReference.child("user").child(uid).setValue(User(name,email,uid))
     }
-    private fun checkEmail()
+    private fun checkEmail(email:String)
     {
         val firebaseUser = mAuth.currentUser
         val name = binding.name.text.toString().trim()
         firebaseUser?.sendEmailVerification()?.addOnCompleteListener { task ->
             if(task.isSuccessful){
                 Toast.makeText(this,"Verification mail sent",Toast.LENGTH_SHORT).show()
-                mAuth.signOut()
                 finish()
+                addUserToDbViaEmail(name,email, mAuth.currentUser!!.uid)
+                mAuth.signOut()
                 val intent = Intent(this,LoginActivity::class.java)
                 intent.putExtra("name",name)
                 startActivity(intent)

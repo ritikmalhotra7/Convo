@@ -61,11 +61,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         verifyEmail(email)
-                        val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
-                        if(isNew!!){
-                            val name = intent.getStringExtra("name")
-                            addUserToDbViaEmail(name!!,email, mAuth.currentUser!!.uid)
-                        }
+
                         hideProgressDialog()
                         finish()
                         startActivity(Intent(this,MainActivity::class.java))

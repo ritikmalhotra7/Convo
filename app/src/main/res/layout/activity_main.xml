@@ -7,14 +7,9 @@
     android:id="@+id/drawerlayout"
     android:layout_height="match_parent">
 
-
-
-
-
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:layout_marginTop="75dp"
     tools:context=".activities.MainActivity">
 
     <ImageView
@@ -28,7 +23,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000" />
+        android:background="#4D000000" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
