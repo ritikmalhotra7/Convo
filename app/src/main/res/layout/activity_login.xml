@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     tools:context=".activities.LoginActivity"
     android:layout_marginBottom="30sp">
@@ -18,7 +19,7 @@
     <EditText
         android:id="@+id/emailid"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/login_image"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="40dp"
@@ -28,25 +29,43 @@
         android:inputType="textEmailAddress"
         android:padding="15dp" />
 
-    <EditText
-        android:id="@+id/password"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="53dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailid"
+        android:layout_marginTop="40sp"
+        android:text="click here to enter password"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        style="@style/Theme.Convo"
+        android:textColor="#807F7F7F"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:id="@+id/pass"
+        app:mtf_backgroundColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/emailid"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:autofillHints="password"
-        android:background="@drawable/edit_bg"
-        android:hint="@string/password"
+        app:mtf_image="@drawable/key_24px"
+        app:mtf_cardCollapsedHeight="4dp">
 
-        android:inputType="textPassword"
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp" />
 
-        android:padding="15dp" />
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
+        android:layout_below="@+id/pass"
         android:layout_margin="20sp"
         android:id="@+id/loginll"
         android:orientation="horizontal"

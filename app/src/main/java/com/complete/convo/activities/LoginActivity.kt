@@ -37,6 +37,10 @@ class LoginActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
+       binding.textView.setOnClickListener {
+           binding.textView.visibility = View.INVISIBLE
+           binding.pass.setHasFocus(true)
+       }
         binding.signUpButton.setOnClickListener {
             val intent = Intent(this,SignupActivity::class.java)
             startActivity(intent)
@@ -51,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this,PhoneAuthenticationActivity::class.java))
             finish()
         }
-        setTheme(R.style.OverlayPrimaryColorRed)
     }
 
     private fun login(email: String, password: String) {
