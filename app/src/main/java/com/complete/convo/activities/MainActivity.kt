@@ -73,19 +73,23 @@ class MainActivity : AppCompatActivity() {
 
         dbReference.child("user").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
                 for(snap in snapshot.children){
                     val currentUser = snap.getValue(User::class.java)
                     val receiversuid = currentUser!!.uid
                     val senderUid = mAuth.currentUser!!.uid
                     val senderRoom = senderUid+receiversuid
-                    userList.clear()
                     dbReference.child("chats").child(senderRoom).addValueEventListener(object : ValueEventListener{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if(snapshot.childrenCount>0){
+                                if(userList.contains(currentUser)){
 
-                                userList.add(currentUser)
-                                adapter.notifyDataSetChanged()
-                                Log.d("tagetsnapshots",currentUser.name.toString())
+                                }else{
+                                    userList.add(currentUser)
+                                    adapter.notifyDataSetChanged()
+                                    Log.d("tagetsnapshots",currentUser.name.toString())
+                                }
+
                             }
                         }
 
