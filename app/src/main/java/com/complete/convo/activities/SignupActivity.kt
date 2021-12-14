@@ -78,10 +78,9 @@ class SignupActivity : AppCompatActivity() {
             if(task.isSuccessful){
                 Toast.makeText(this,"Verification mail sent",Toast.LENGTH_SHORT).show()
                 finish()
-                addUserToDbViaEmail(name,email, mAuth.currentUser!!.uid)
+                addUserToDbViaEmail(name,email,mAuth.currentUser!!.uid)
                 mAuth.signOut()
                 val intent = Intent(this,LoginActivity::class.java)
-                intent.putExtra("name",name)
                 startActivity(intent)
                 hideProgressDialog()
 

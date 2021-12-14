@@ -10,6 +10,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
+
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         uri = Uri.parse(sharedPref.getString("imageUri","/"))
         binding.imageview.setImageURI(uri)
@@ -69,7 +71,82 @@ class MainActivity : AppCompatActivity() {
             startActivity(open)
         }
 
+        dbReference.child("user").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(snap in snapshot.children){
+                    val currentUser = snap.getValue(User::class.java)
+                    val receiversuid = currentUser!!.uid
+                    val senderUid = mAuth.currentUser!!.uid
+                    val senderRoom = senderUid+receiversuid
+                    userList.clear()
+                    dbReference.child("chats").child(senderRoom).addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.childrenCount>0){
 
+                                userList.add(currentUser)
+                                adapter.notifyDataSetChanged()
+                                Log.d("tagetsnapshots",currentUser.name.toString())
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+
+
+
+
+
+
+        /*dbReference.child("user").addValueEventListener(object: ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                    userList.clear()
+                val senderUid = mAuth.currentUser?.uid
+                for(snap in snapshot.children){
+                    Log.d("tagetsnaps",snap.exists().toString())
+                    val currentUser = snap.getValue(User::class.java)
+                    val recieverUid = currentUser?.uid
+                    val senderRoom = recieverUid + senderUid
+                    if(mAuth.currentUser?.uid != currentUser?.uid){
+                        Log.d("tagetsnap",snap.exists().toString())
+                        dbReference.child("chats").child(senderRoom).addValueEventListener(object:ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if(snapshot.exists()){
+                                    Log.d("taget",snapshot.exists().toString())
+                                    userList.add(currentUser!!)
+                                    Log.d("tagetuser",userList.toString())
+                                    Log.d("tagetuser",currentUser.name.toString())
+                                }
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+
+                    }
+                }
+                adapter.notifyDataSetChanged()
+            }
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })*/
+        binding.fab.setOnClickListener {
+            val intent = Intent(this,AllUsers::class.java)
+            startActivity(intent)
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navView.setNavigationItemSelectedListener{
             when(it.itemId){
@@ -77,6 +154,7 @@ class MainActivity : AppCompatActivity() {
                     mAuth.signOut()
                     val intent = Intent(this@MainActivity, LoginActivity::class.java)
                     finish()
+                    mAuth.signOut()
                     startActivity(intent)
                 }
                 R.id.yourpicture ->{
@@ -97,30 +175,6 @@ class MainActivity : AppCompatActivity() {
 
             }
             true
-
-        }
-
-        dbReference.child("user").addValueEventListener(object: ValueEventListener {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onDataChange(snapshot: DataSnapshot) {
-                    userList.clear()
-                for(snap in snapshot.children){
-                    val currentUser = snap.getValue(User::class.java)
-                    if(mAuth.currentUser?.uid != currentUser?.uid){
-                        userList.add(currentUser!!)
-                    }
-                }
-                adapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
-        binding.fab.setOnClickListener {
-            val intent = Intent(this,AllUsers::class.java)
-            startActivity(intent)
         }
     }
 

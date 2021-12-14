@@ -156,6 +156,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                             mBuilder.show()
                         }catch (e:Exception){
                             Log.d("taget",e.toString())
+                            hideProgressDialog()
 
                         }
                     }else{
@@ -212,7 +213,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
 
         db = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/")
             .reference
-        db.child("user").child(name).setValue(User(name,phone,uid,phone))
+        db.child("user").child(uid!!).setValue(User(name,phone,uid,phone))
 
     }
 
