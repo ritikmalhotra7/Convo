@@ -17,6 +17,7 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
 
     class ViewHolder(binding: UserLayoutBinding/*view:View*/) : RecyclerView.ViewHolder(binding.root) {
         val textName = binding.name
+        val emailorphn = binding.emailorphone
 
         val v = binding.root
     }
@@ -40,6 +41,11 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
             intent.putExtra("uid", currentUser.uid)
 
             context.startActivity(intent)
+        }
+        if(currentUser.email != null){
+            holder.emailorphn.text = currentUser.email.toString()
+        }else{
+            holder.emailorphn.text = currentUser.phoneNumber.toString()
         }
     }
 

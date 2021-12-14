@@ -5,9 +5,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.complete.convo.R
 import com.complete.convo.adapters.MessagesAdapter
 import com.complete.convo.databinding.ActivityChatBinding
 import com.complete.convo.model.Messages
@@ -45,8 +48,18 @@ class ChatActivity : AppCompatActivity() {
 
         senderRoom = recieverUid + senderUid
         recieverRoom = senderUid + recieverUid
-        binding.toolbar.title = recieversName
-        setSupportActionBar(binding.toolbar)
+
+        var actionBar = supportActionBar
+        // showing the back button in action bar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
+        actionBar?.title = recieversName?.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
+        actionBar?.setHomeAsUpIndicator(R.drawable.back_24px)
 
 
         binding.recyclerView1.layoutManager = LinearLayoutManager(this)
@@ -81,6 +94,7 @@ class ChatActivity : AppCompatActivity() {
             val open = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/"))
             startActivity(open)
         }*/
+
         binding.send.setOnClickListener {
             val message = binding.messageBox.text.toString()
             val c = Calendar.getInstance()
@@ -93,7 +107,7 @@ class ChatActivity : AppCompatActivity() {
                     hour = 12
                 }
                 if(hour>12){
-                    hour -=12
+                    hour -= 12
                     am = "pm"
                 }
                  timeStamp = "$hour:0$minute $am"
@@ -125,9 +139,10 @@ class ChatActivity : AppCompatActivity() {
                 ).show()
             }
         }
+
     }
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
         super.onBackPressed()
         finish()
-    }
+    }*/
 }

@@ -1,9 +1,9 @@
 package com.complete.convo.model
 class User {
     var name: String? = null
-    private var email: String? = null
+    var email: String? = null
     var uid: String? = null
-    private var phoneNumber : String? = null
+    var phoneNumber : String? = null
     constructor()
     constructor(name: String?, email:String?, uid:String?){
         this.name = name

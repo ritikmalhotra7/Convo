@@ -35,7 +35,8 @@
         <activity
             android:name=".activities.ChatActivity"
             android:exported="true"
-            android:theme="@style/Theme.Convo.NoActionBar"
+            android:theme="@style/Theme.Convo"
+            android:parentActivityName=".activities.MainActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SignupActivity"

@@ -54,6 +54,7 @@
         app:mtf_cardCollapsedHeight="4dp">
 
         <EditText
+            android:textColor="@color/grey"
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
