@@ -1,8 +1,12 @@
 package com.complete.convo.activities
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.complete.convo.R
 import com.complete.convo.databinding.ActivityContactUsBinding
 import com.complete.convo.databinding.ActivityMainBinding
@@ -20,9 +24,29 @@ class ContactUs : AppCompatActivity() {
             actionBar.setDisplayHomeAsUpEnabled(true)
         }
         actionBar?.setHomeAsUpIndicator(R.drawable.back_24px)
-        binding.emailabhi.setOnClickListener {
-            Toast.makeText(this,"abhishek",Toast.LENGTH_SHORT).show()
-        }
 
+        binding.ritik.setOnClickListener{
+            copyToClipboard("ritik","ritikrkmalhotra@gmail.com")
+            toast()
+        }
+        binding.abhishek.setOnClickListener{
+            copyToClipboard("abhishek","gairolabhi80@gmail.com")
+            toast()
+        }
+        binding.nupur.setOnClickListener{
+            copyToClipboard("nupur","nupuraggarwal1502@gmail.com")
+            toast()
+        }
+        binding.prateek.setOnClickListener{
+            copyToClipboard("prateek","aroraprateek700@gmail.com")
+            toast()
+        }
+    }
+    fun Context.copyToClipboard(clipLabel: String, text: CharSequence){
+        val clipboard = ContextCompat.getSystemService(this, ClipboardManager::class.java)
+        clipboard?.setPrimaryClip(ClipData.newPlainText(clipLabel, text))
+    }
+    fun toast(){
+        Toast.makeText(this,"Credentials Copied",Toast.LENGTH_SHORT).show()
     }
 }

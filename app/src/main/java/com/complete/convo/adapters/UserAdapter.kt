@@ -44,6 +44,11 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
             val intent = Intent(context,ChatActivity::class.java)
 
             intent.putExtra("name", currentUser.name)
+            if(currentUser.email != null){
+                intent.putExtra("emailorphone",currentUser.email)
+            }else{
+                intent.putExtra("emailorphone",currentUser.phoneNumber)
+            }
             intent.putExtra("uid", currentUser.uid)
 
             context.startActivity(intent)

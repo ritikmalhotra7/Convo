@@ -48,6 +48,7 @@ class ChatActivity : AppCompatActivity() {
 
         senderRoom = recieverUid + senderUid
         recieverRoom = senderUid + recieverUid
+        val emailorphone = intent.getStringExtra("emailorphone")
 
         var actionBar = supportActionBar
         // showing the back button in action bar
@@ -59,8 +60,8 @@ class ChatActivity : AppCompatActivity() {
                 Locale.getDefault()
             ) else it.toString()
         }
+        actionBar?.subtitle = emailorphone.toString()
         actionBar?.setHomeAsUpIndicator(R.drawable.back_24px)
-
 
         binding.recyclerView1.layoutManager = LinearLayoutManager(this)
         messageList = ArrayList()

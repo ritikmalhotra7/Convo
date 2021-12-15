@@ -7,7 +7,7 @@
     android:background="#1F2C35"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="#1F2C35">
@@ -200,15 +200,204 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="@dimen/item_board_divider_height"-->
-<!--        android:background="@color/divider_color" />-->
+&lt;!&ndash;    <View&ndash;&gt;
+&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;
+&lt;!&ndash;        android:layout_height="@dimen/item_board_divider_height"&ndash;&gt;
+&lt;!&ndash;        android:background="@color/divider_color" />&ndash;&gt;-->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/ritik"
+        android:backgroundTint="#003700B3">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview1"
+                android:layout_width="@dimen/item_board_image_size"
+                android:layout_height="@dimen/item_board_image_size"
+                android:contentDescription="@string/image"
+                android:src="@drawable/ritik"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                app:civ_border_color="@color/primary_text_color"
+                app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview1"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/name1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
+                android:text="Ritik Malhotra"
+                app:layout_constraintBottom_toTopOf="@+id/email1"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <TextView
+                android:text="ritikrkmalhotra@gmail.com"
+                android:id="@+id/email1"
+                android:layout_marginStart="10dp"
+                android:layout_width="0dp"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview1"
+                app:layout_constraintTop_toBottomOf="@id/name1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/abhishek"
+        android:backgroundTint="#003700B3">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview34"
+                android:layout_width="@dimen/item_board_image_size"
+                android:layout_height="@dimen/item_board_image_size"
+                android:contentDescription="@string/image"
+                android:src="@drawable/abhi"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                app:civ_border_color="@color/primary_text_color"
+                app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+            <TextView
+                android:layout_width="0dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview34"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/name4"
+                android:layout_marginStart="10dp"
+                android:text="Abhishek Gairola"
+                app:layout_constraintBottom_toTopOf="@+id/email4"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <TextView
+                android:text="gairolabhi80@gmail.com"
+                android:id="@+id/email4"
+                android:layout_marginStart="10dp"
+                android:layout_width="0dp"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview34"
+                app:layout_constraintTop_toBottomOf="@id/name4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/nupur"
+        android:backgroundTint="#003700B3">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview3"
+                android:layout_width="@dimen/item_board_image_size"
+                android:layout_height="@dimen/item_board_image_size"
+                android:contentDescription="@string/image"
+                android:src="@drawable/ic_board_place_holder"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                app:civ_border_color="@color/primary_text_color"
+                app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+            <TextView
+                android:layout_width="0dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview3"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/name3"
+                android:layout_marginStart="10dp"
+                android:text="Nupur Aggarwal"
+                app:layout_constraintBottom_toTopOf="@+id/email3"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <TextView
+                android:text="nupuraggarwal1502@gmail.com"
+                android:id="@+id/email3"
+                android:layout_marginStart="10dp"
+                android:layout_width="0dp"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview3"
+                app:layout_constraintTop_toBottomOf="@id/name3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/prateek"
+        android:backgroundTint="#003700B3">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview2"
+                android:layout_width="@dimen/item_board_image_size"
+                android:layout_height="@dimen/item_board_image_size"
+                android:contentDescription="@string/image"
+                android:src="@drawable/ic_board_place_holder"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="10dp"
+                app:civ_border_color="@color/primary_text_color"
+                app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+            <TextView
+                android:layout_width="0dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview2"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/name2"
+                android:layout_marginStart="10dp"
+                android:text="Prateek Arora"
+                app:layout_constraintBottom_toTopOf="@+id/email2"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <TextView
+                android:text="aroraprateek700@gmail.com"
+                android:id="@+id/email2"
+                android:layout_marginStart="10dp"
+                android:layout_width="0dp"
+                android:textSize="15dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imageview2"
+                app:layout_constraintTop_toBottomOf="@id/name2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/help_us_grow"
+        android:text="Tap to any Profile to copy Credentials!"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"/>
 
