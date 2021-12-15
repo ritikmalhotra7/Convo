@@ -11,6 +11,8 @@ import com.complete.convo.activities.ChatActivity
 
 import com.complete.convo.databinding.UserLayoutBinding
 import com.complete.convo.model.User
+import java.util.*
+import kotlin.collections.ArrayList
 
 class UserAdapter (val context : Context, private val userList : ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
@@ -31,7 +33,11 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentUser = userList[position]
-        holder.textName.text = currentUser.name
+        holder.textName.text = currentUser.name?.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
 
 
         holder.v.setOnClickListener {

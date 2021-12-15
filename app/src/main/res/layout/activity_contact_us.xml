@@ -4,24 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="#1F2C35"
     android:orientation="vertical">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:theme="@style/Theme.Convo.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Convo.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -53,7 +37,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:textSize="@dimen/item_board_name_text_size"
                     tools:text="Ritik Malhotra" />
 
@@ -76,6 +59,7 @@
         android:background="@color/divider_color" />
 
    <androidx.cardview.widget.CardView
+       style="@style/Theme.Convo"
        android:layout_width="match_parent"
        android:layout_height="80dp">
        <LinearLayout
@@ -110,6 +94,7 @@
                    tools:text="Abhishek Gairola" />
 
                <TextView
+                   android:id="@+id/emailabhi"
 
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
@@ -124,6 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_board_divider_height"
         android:background="@color/divider_color" />
+
    <androidx.cardview.widget.CardView
        android:layout_width="match_parent"
        android:layout_height="80dp">
@@ -132,7 +118,6 @@
            android:layout_height="wrap_content"
            android:gravity="center_vertical"
            android:orientation="horizontal"
-           android:background="#1F2C35"
            android:padding="@dimen/item_board_content_padding">
 
            <de.hdodenhof.circleimageview.CircleImageView

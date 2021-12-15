@@ -44,9 +44,8 @@
         android:layout_marginBottom="30dp"
         android:contentDescription="@string/image"
         android:elevation="20dp"
-        android:src="@drawable/add"
+        android:src="@drawable/group_24px"
         app:fabCustomSize="60dp"
-        app:tint="@color/white"
         tools:ignore="RelativeOverlap" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

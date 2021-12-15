@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,8 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.text.parseAsHtml
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.complete.convo.R
 import com.complete.convo.adapters.UserAdapter
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mAuth :FirebaseAuth
     private lateinit var uri:Uri
+    private lateinit var ur:Uri
     private lateinit var dbReference : DatabaseReference
     lateinit var toggle : ActionBarDrawerToggle
 
@@ -57,9 +61,10 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
 
-        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        /*val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         uri = Uri.parse(sharedPref.getString("imageUri","/"))
         binding.imageview.setImageURI(uri)
+            binding.imageview.invalidate()*/
 
         toggle = ActionBarDrawerToggle(this,binding.drawerlayout,R.string.open,R.string.close)
         binding.drawerlayout.addDrawerListener(toggle)
@@ -166,6 +171,8 @@ class MainActivity : AppCompatActivity() {
                         == PackageManager.PERMISSION_GRANTED
                     ) {
                         showImageChooser()
+                        val b = NavHeaderBinding.inflate(layoutInflater)
+                        b.yourpicture.setImageURI(ur)
                     } else {
 
                         ActivityCompat.requestPermissions(
@@ -180,6 +187,10 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        val preferences: SharedPreferences = getPreferences(Context.MODE_PRIVATE) ?: return
+        val mImageUri = preferences.getString("imageuri", null)
+        val url = Uri.parse(mImageUri)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -196,9 +207,8 @@ class MainActivity : AppCompatActivity() {
                     == PackageManager.PERMISSION_GRANTED
                 ) {
                     showImageChooser()
-                    clicked = true
-                    val b = NavHeaderBinding.inflate(layoutInflater)
-                    b.yourpicture.setImageURI(uri)
+
+
                 } else {
 
                     ActivityCompat.requestPermissions(
@@ -241,10 +251,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun showImageChooser() {
         // An intent for launching the image selection of phone storage.
-        val galleryIntent = Intent(
+        /*val galleryIntent = Intent(
             Intent.ACTION_PICK,
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
+        )*/
+        val galleryIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         // Launches the image selection of phone storage using the constant code.
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
     }
@@ -263,9 +274,12 @@ class MainActivity : AppCompatActivity() {
         ) {
             // The uri of selection image from phone storage.
             uri = data.data!!
+            /*this.grantUriPermission(this.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+            this.getContentResolver().takePersistableUriPermission(uri, takeFlags);*/
             val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
             with (sharedPref.edit()) {
-                putString("imageuri",uri.path.toString())
+                putString("imageuri",uri.toString())
                 apply()
             }
         }

@@ -6,6 +6,9 @@ plugins {
 }
 
 android {
+    lintOptions {
+        checkReleaseBuilds false
+    }
     compileSdk 31
     buildFeatures{
         viewBinding true
