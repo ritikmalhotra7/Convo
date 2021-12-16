@@ -51,11 +51,14 @@
         android:layout_below="@+id/emailid"
         android:layout_marginHorizontal="10dp"
         app:mtf_image="@drawable/key_24px"
+
         app:mtf_cardCollapsedHeight="4dp">
 
         <EditText
             android:textColor="@color/grey"
             android:id="@+id/password"
+            android:drawableEnd="@drawable/eye_24px"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="15sp" />
