@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.complete.convo.R
+import com.complete.convo.actvities.MainActivity
 import com.complete.convo.adapters.MessagesAdapter
 import com.complete.convo.databinding.ActivityChatBinding
 import com.complete.convo.model.Messages
@@ -80,7 +81,7 @@ class ChatActivity : AppCompatActivity() {
                         messageList.add(message!!)
                     }
                     mAdapter.notifyDataSetChanged()
-                    val intent = Intent(this@ChatActivity,MainActivity::class.java)
+                    val intent = Intent(this@ChatActivity, MainActivity::class.java)
                     intent.putExtra("message_list_size",messageList.size)
                     intent.putExtra("username",recieverUid)
 

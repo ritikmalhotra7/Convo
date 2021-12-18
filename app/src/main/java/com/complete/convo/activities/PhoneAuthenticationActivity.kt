@@ -28,6 +28,7 @@ import com.google.firebase.auth.AuthResult
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import com.complete.convo.R
+import com.complete.convo.actvities.MainActivity
 import com.complete.convo.databinding.DialogViewBinding
 
 import com.google.android.gms.tasks.OnCompleteListener

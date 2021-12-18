@@ -1,4 +1,4 @@
-package com.complete.convo.activities
+package com.complete.convo.actvities
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -9,6 +9,7 @@ import android.content.Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
 import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -35,9 +36,23 @@ import com.complete.convo.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.lang.Exception
+import androidx.core.app.ActivityCompat.startActivityForResult
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.with
+import com.complete.convo.activities.AllUsers
+import com.complete.convo.activities.ContactUs
+import com.complete.convo.activities.LoginActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Request
+
 
 class MainActivity : AppCompatActivity() {
-    private var uri: Uri ? = null
+    private lateinit var uri : StorageReference
     private var imageUri: Uri? = null
     private val pickImage: Int = 100
     private var clicked: Boolean = false
@@ -53,6 +68,8 @@ class MainActivity : AppCompatActivity() {
 
     var name :String? = null
     var emailorphone :String? = null
+    val storage = FirebaseStorage.getInstance()
+    var storageRef = storage.reference
 
 
 
@@ -69,39 +86,28 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
-        val sharedPrefrences = getSharedPreferences("shared",Context.MODE_PRIVATE)
-        val savedString = sharedPrefrences.getString("uri","nothing")
-        Log.d("tagetMain",savedString.toString())
-        binding.imageview.setImageURI(uri)
 
-
-
-        /*val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        uri = Uri.parse(sharedPref.getString("imageUri","/"))
-        binding.imageview.setImageURI(uri)
-            binding.imageview.invalidate()*/
 
         toggle = ActionBarDrawerToggle(this,binding.drawerlayout,R.string.open,R.string.close)
         binding.drawerlayout.addDrawerListener(toggle)
         toggle.syncState()
+        /*val uri = storage.getReferenceFromUrl(storageRef.child(mAuth.currentUser!!.uid).path)
+        Log.d("tageturl",uri.toString())
+        Glide.with(this).load(uri).into(binding.imageview)*/
 
+
+       /* try {
+            Picasso.get()
+                .load(uri)
+                .into(binding.imageview)
+        }catch(e:IllegalAccessException){
+            e.printStackTrace()
+        }*/
 
         binding.search.setOnClickListener{
             val open = Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"))
             startActivity(open)
         }
-
-        dbReference.child("user").child(mAuth.currentUser!!.uid).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val cu = snapshot.getValue(User::class.java)
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
         val b = NavHeaderBinding.inflate(layoutInflater)
         b.emailorphone.text = emailorphone.toString()
         b.tvUsername.text = name.toString()
@@ -190,11 +196,10 @@ class MainActivity : AppCompatActivity() {
 
         })*/
         binding.fab.setOnClickListener {
-            val intent = Intent(this,AllUsers::class.java)
+            val intent = Intent(this, AllUsers::class.java)
             startActivity(intent)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.navView
         binding.navView.setNavigationItemSelectedListener{
 
             when(it.itemId){
@@ -206,7 +211,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.contactus->{
-                    val intent=Intent(this,ContactUs::class.java)
+                    val intent=Intent(this, ContactUs::class.java)
                     startActivity(intent)
                 }
                 /*R.id.wallpaper ->{
@@ -245,15 +250,13 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             if(data != null){
                 imageUri = data.data
+                storageRef.child(mAuth.currentUser!!.uid.toString())
+                    .putFile(data.data!!).addOnSuccessListener {
+                        Toast.makeText(this,"saved",Toast.LENGTH_SHORT).show()
+                    }
                 binding.imageview.setImageURI(imageUri)
-                val sharedPrefrences = getSharedPreferences("shared",Context.MODE_PRIVATE)
-                val editor = sharedPrefrences.edit()
-                val uriPathHelper = URIPathHelper()
-                val filePath = uriPathHelper.getPath(this, data.data!!)
-                editor.apply{
-                    putString("uri",filePath.toString())
-                }.apply()
-
+            }else{
+                Toast.makeText(this,"Empty Data",Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -264,45 +267,16 @@ class MainActivity : AppCompatActivity() {
         }
         when(item.itemId) {
             R.id.wallpaper ->{
-                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-                startActivityForResult(gallery, pickImage)
-                gallery.addFlags(FLAG_GRANT_READ_URI_PERMISSION)
-                gallery.addFlags(FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-            }
-           /* R.id.wallpaper ->{
-                *//*if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED
-                ) {
-                    showImageChooser()
-
-
-                } else {
-
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        READ_STORAGE_PERMISSION_CODE
+                val galleryIntent = Intent(Intent.ACTION_PICK)
+                galleryIntent.type = "image/*, video/*"
+                if (galleryIntent.resolveActivity(packageManager) != null) {
+                    startActivityForResult(
+                        Intent.createChooser(galleryIntent, "Select File"),pickImage
                     )
-                }*//*
+                }
 
             }
-            R.id.profilePic -> {
-               *//* if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED
-                ) {
-                    showImageChooser()
-                    clicked = true
-                    val b = NavHeaderBinding.inflate(layoutInflater)
-                    b.yourpicture.setImageURI(uri)
-                } else {
 
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        READ_STORAGE_PERMISSION_CODE
-                    )
-                }*//*
-            }*/
 
         }
         return true
@@ -312,48 +286,6 @@ class MainActivity : AppCompatActivity() {
         _binding = null
 
     }
-
-   /* private fun showImageChooser() {
-        // An intent for launching the image selection of phone storage.
-        *//*val galleryIntent = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )*//*
-        val galleryIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        // Launches the image selection of phone storage using the constant code.
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_CODE)
-    }
-    companion object {
-        //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult
-        private const val READ_STORAGE_PERMISSION_CODE = 1
-
-        private const val PICK_IMAGE_REQUEST_CODE = 2
-    }*/
-
-
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK
-            && requestCode == PICK_IMAGE_REQUEST_CODE
-            && data!!.data != null
-        ) {
-            // The uri of selection image from phone storage.
-            uri = data.data!!
-            *//*this.grantUriPermission(this.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-            this.getContentResolver().takePersistableUriPermission(uri, takeFlags);*//*
-            val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-            with (sharedPref.edit()) {
-                putString("imageuri",uri.toString())
-                apply()
-            }
-        }
-        try{
-            binding.imageview.setImageURI(uri)
-        }catch (e:Exception){
-            Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show()
-        }
-    }*/
     override fun onBackPressed() {
         val a = Intent(Intent.ACTION_MAIN)
         a.addCategory(Intent.CATEGORY_HOME)
