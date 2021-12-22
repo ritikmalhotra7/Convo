@@ -26,6 +26,7 @@ import android.media.RingtoneManager
 
 import android.app.NotificationManager
 import android.content.Context
+import android.view.View
 import androidx.core.app.NotificationCompat
 
 
@@ -37,6 +38,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var dbReference : DatabaseReference
     private lateinit var mAdapter : MessagesAdapter
     private lateinit var messageList : ArrayList<Messages>
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,17 @@ class ChatActivity : AppCompatActivity() {
         val recieverUid = intent.getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid!!
 
+
+
+
+        binding.msgbox.setStartIconOnClickListener {
+            binding.fragContainer.visibility = View.VISIBLE
+            val msg = binding.messageBox.text.toString()
+            var frag  = BlankFragment(msg)
+            val manager = supportFragmentManager.beginTransaction()
+            manager.replace(R.id.fragContainer,frag)
+            manager.commit()
+        }
 
         senderRoom = recieverUid + senderUid
         recieverRoom = senderUid + recieverUid

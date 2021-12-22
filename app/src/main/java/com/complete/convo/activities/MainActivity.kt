@@ -103,11 +103,6 @@ class MainActivity : AppCompatActivity() {
         }catch(e:IllegalAccessException){
             e.printStackTrace()
         }*/
-
-        binding.search.setOnClickListener{
-            val open = Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"))
-            startActivity(open)
-        }
         val b = NavHeaderBinding.inflate(layoutInflater)
         b.emailorphone.text = emailorphone.toString()
         b.tvUsername.text = name.toString()

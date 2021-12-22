@@ -23,6 +23,21 @@
             app:popupTheme="@style/Theme.Convo.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>-->
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragContainer">
+        <fragment
+            android:id="@+id/fragment_activity_main"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.fragment.app.FragmentContainerView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView1"
@@ -37,39 +52,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:padding="5dp"
+        android:weightSum="10"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="2dp"
         android:id="@+id/llll"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="5dp"
         android:orientation="horizontal">
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:id="@+id/msgbox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:background="@drawable/edit_bg"
+            android:layout_weight="10.5"
+            app:startIconDrawable="@drawable/google_24px">
+            <!--app:helperText="required*"
+            app:helperTextTextColor="@color/dred"-->
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/messageBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter your Message" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--<EditText
             android:id="@+id/messageBox"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="100"
-            android:drawableStart="@drawable/thinking"
+            android:drawableStart="@drawable/google_24px"
             android:drawablePadding="2dp"
             android:paddingStart="5dp"
             android:background="@drawable/edit_bg"
             android:singleLine="true"
-
             android:inputType="text"
             android:hint="@string/type_your_message_here"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no" />-->
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-          android:id="@+id/send"
+        <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabCustomSize="40dp"
-            android:layout_weight="10"
-            android:layout_marginStart="10sp"
-            android:layout_gravity="end"
-            android:tint="@color/white"
-            android:src="@drawable/ic_baseline_send_24"
-            android:contentDescription="@string/sending_the_message"
+            android:layout_height="match_parent"
+            android:text="send"
+            android:id="@+id/send"
+            android:layout_weight="1"
             />
+
 
 
 

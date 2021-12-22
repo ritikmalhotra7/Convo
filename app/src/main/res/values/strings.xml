@@ -47,4 +47,6 @@
     <string name="help_us_grow">Help us grow!</string>
     <string name="contact_us">Contact Us</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
