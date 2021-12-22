@@ -90,46 +90,6 @@ class ChatActivity : AppCompatActivity() {
         binding.recyclerView1.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
 
-        dbReference.child("chats").child(senderRoom!!).child("messages")
-            .addChildEventListener(object : ChildEventListener{
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    val message = snapshot.getValue(Messages::class.java)
-                    if(!message!!.senderId!!.equals(senderUid)){
-                        var mNotificationManager =
-                            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                        val senderName = intent.getStringExtra("name")
-
-                        val mBuilder: NotificationCompat.Builder =
-                            NotificationCompat.Builder(this@ChatActivity)
-                                .setSmallIcon(R.drawable.undraw_ideas_s70l)
-                                .setContentTitle("New Message from " + senderName)
-                                .setContentText(message.message)
-                                .setOnlyAlertOnce(true)
-                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                        mBuilder.setAutoCancel(true)
-                        mBuilder.setLocalOnly(false)
-                        var NOTIFICATION_ID = 0
-                        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-                    }
-                }
-
-                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
 
         dbReference.child("chats").child(senderRoom!!).child("messages")
             .addValueEventListener(object : ValueEventListener {

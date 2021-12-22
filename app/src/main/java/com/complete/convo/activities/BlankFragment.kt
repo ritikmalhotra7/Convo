@@ -28,7 +28,7 @@ class BlankFragment(val msg :String) : Fragment() {
             webView.restoreState(savedInstanceState)
             Log.d("taget","saved")
         }else{
-            webView.loadUrl("https://google.com/search?q=")
+            webView.loadUrl("https://google.com/search?q=$msg")
         }
 
         val webSettings = binding!!.webView.settings
@@ -49,5 +49,7 @@ class BlankFragment(val msg :String) : Fragment() {
 
         return root
     }
+
+
 
 }
