@@ -24,8 +24,6 @@ class LoginActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var mAuth : FirebaseAuth
-    private lateinit var dbReference : DatabaseReference
-    private var isVerified = false
     private var vemail = false
 
     private lateinit var mProgressDialog: Dialog
@@ -38,16 +36,12 @@ class LoginActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
-       binding.textView.setOnClickListener {
-           binding.textView.visibility = View.INVISIBLE
-           binding.pass.setHasFocus(true)
-       }
         binding.signUpButton.setOnClickListener {
             val intent = Intent(this,SignupActivity::class.java)
             startActivity(intent)
         }
         binding.loginButton.setOnClickListener {
-            val email = binding.emailid.text.toString()
+            val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
             verifyEmail(email,password)
@@ -84,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
     private fun verifyEmail(email: String, password:String) {
-        if(!TextUtils.isEmpty(binding.emailid.text.toString()) && !TextUtils.isEmpty(binding.password.text.toString())){
+        if(!TextUtils.isEmpty(binding.email.text.toString()) && !TextUtils.isEmpty(binding.password.text.toString())){
             showProgressDialog()
             mAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
                 vemail = mAuth.currentUser!!.isEmailVerified

@@ -10,17 +10,24 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.complete.convo.R
 import com.complete.convo.actvities.MainActivity
 import com.complete.convo.adapters.MessagesAdapter
 import com.complete.convo.databinding.ActivityChatBinding
 import com.complete.convo.model.Messages
+import com.complete.convo.R
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 import java.util.*
 import kotlin.collections.ArrayList
+import android.media.RingtoneManager
+
+import android.app.NotificationManager
+import android.content.Context
+import androidx.core.app.NotificationCompat
+
 
 class ChatActivity : AppCompatActivity() {
     private var _binding : ActivityChatBinding? = null
@@ -71,6 +78,47 @@ class ChatActivity : AppCompatActivity() {
         mAdapter.notifyDataSetChanged()
 
         dbReference.child("chats").child(senderRoom!!).child("messages")
+            .addChildEventListener(object : ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val message = snapshot.getValue(Messages::class.java)
+                    if(!message!!.senderId!!.equals(senderUid)){
+                        var mNotificationManager =
+                            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                        val senderName = intent.getStringExtra("name")
+
+                        val mBuilder: NotificationCompat.Builder =
+                            NotificationCompat.Builder(this@ChatActivity)
+                                .setSmallIcon(R.drawable.undraw_ideas_s70l)
+                                .setContentTitle("New Message from " + senderName)
+                                .setContentText(message.message)
+                                .setOnlyAlertOnce(true)
+                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                        mBuilder.setAutoCancel(true)
+                        mBuilder.setLocalOnly(false)
+                        var NOTIFICATION_ID = 0
+                        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+                    }
+                }
+
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+
+        dbReference.child("chats").child(senderRoom!!).child("messages")
             .addValueEventListener(object : ValueEventListener {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -84,6 +132,8 @@ class ChatActivity : AppCompatActivity() {
                     val intent = Intent(this@ChatActivity, MainActivity::class.java)
                     intent.putExtra("message_list_size",messageList.size)
                     intent.putExtra("username",recieverUid)
+
+
 
                 }
 

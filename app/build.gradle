@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-core:20.0.1'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'

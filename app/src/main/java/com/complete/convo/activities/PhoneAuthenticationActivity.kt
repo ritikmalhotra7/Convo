@@ -232,4 +232,9 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     private fun hideProgressDialog() {
         mProgressDialog.dismiss()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this,LoginActivity::class.java))
+    }
 }
