@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.complete.convo.R
@@ -48,5 +49,14 @@ class ContactUs : AppCompatActivity() {
     }
     fun toast(){
         Toast.makeText(this,"Credentials Copied",Toast.LENGTH_SHORT).show()
+    }
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onContextItemSelected(item)
     }
 }

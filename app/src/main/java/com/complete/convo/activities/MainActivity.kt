@@ -1,33 +1,17 @@
 package com.complete.convo.actvities
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
-import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
-import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
-import android.renderscript.ScriptGroup
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.text.parseAsHtml
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.disklrucache.DiskLruCache
 import com.complete.convo.R
 import com.complete.convo.adapters.UserAdapter
 import com.complete.convo.databinding.ActivityMainBinding
@@ -35,20 +19,13 @@ import com.complete.convo.databinding.NavHeaderBinding
 import com.complete.convo.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.lang.Exception
-import androidx.core.app.ActivityCompat.startActivityForResult
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.with
 import com.complete.convo.activities.AllUsers
 import com.complete.convo.activities.ContactUs
 import com.complete.convo.activities.LoginActivity
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.ktx.Firebase
+import com.complete.convo.model.Messages
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Request
 
 
 class MainActivity : AppCompatActivity() {
@@ -91,55 +68,18 @@ class MainActivity : AppCompatActivity() {
         toggle = ActionBarDrawerToggle(this,binding.drawerlayout,R.string.open,R.string.close)
         binding.drawerlayout.addDrawerListener(toggle)
         toggle.syncState()
-        /*val uri = storage.getReferenceFromUrl(storageRef.child(mAuth.currentUser!!.uid).path)
-        Log.d("tageturl",uri.toString())
-        Glide.with(this).load(uri).into(binding.imageview)*/
 
-
-       /* try {
-            Picasso.get()
-                .load(uri)
-                .into(binding.imageview)
-        }catch(e:IllegalAccessException){
-            e.printStackTrace()
-        }*/
         val b = NavHeaderBinding.inflate(layoutInflater)
-        b.emailorphone.text = emailorphone.toString()
-        b.tvUsername.text = name.toString()
+
         dbReference.child("user").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                userList.clear()
                 for(snap in snapshot.children){
                     val currentUser = snap.getValue(User::class.java)
                     val receiversuid = currentUser!!.uid
                     val senderUid = mAuth.currentUser!!.uid
                     val senderRoom = senderUid+receiversuid
-                    if(currentUser.uid == mAuth.currentUser?.uid){
-                        name = currentUser!!.name.toString()
-                        if(currentUser.email != null){
-                            emailorphone = currentUser.email.toString()
-                        }else{
-                            emailorphone = currentUser.phoneNumber.toString()
-                        }
-                    }
-                    dbReference.child("chats").child(senderRoom).addValueEventListener(object : ValueEventListener{
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if(snapshot.childrenCount>0){
-                                if(userList.contains(currentUser)){
 
-                                }else{
-                                    userList.add(currentUser)
-                                    adapter.notifyDataSetChanged()
-                                    Log.d("tagetsnapshots",currentUser.name.toString())
-                                }
 
-                            }
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-                            TODO("Not yet implemented")
-                        }
-                    })
                 }
 
             }
@@ -190,6 +130,41 @@ class MainActivity : AppCompatActivity() {
             }
 
         })*/
+        /*dbReference.child("user").addValueEventListener(object: ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for(snap in snapshot.children){
+                    val currentUser = snap.getValue(User::class.java)
+                    var hasChat = false
+                    try {
+                        val receiversuid = currentUser!!.uid
+                        val senderUid = mAuth.currentUser!!.uid
+                        val senderRoom = senderUid+receiversuid
+
+                        dbReference.child("chats").child(senderRoom).addValueEventListener(object : ValueEventListener{
+                            override fun onDataChange(snapshots: DataSnapshot) {
+                                Log.d("tagets",snapshots.toString())
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                    }catch (e:IllegalAccessException){
+
+                    }
+                    if(mAuth.currentUser?.uid != currentUser?.uid && hasChat){
+                        userList.add(currentUser!!)
+                        Log.d("tagethaschat",hasChat.toString())
+                    }
+                }
+                adapter.notifyDataSetChanged()
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+        )*/
         binding.fab.setOnClickListener {
             val intent = Intent(this, AllUsers::class.java)
             startActivity(intent)

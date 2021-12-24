@@ -63,7 +63,7 @@ class ChatActivity : AppCompatActivity() {
             val msg = binding.messageBox.text.toString()
             var frag  = BlankFragment(msg)
             val manager = supportFragmentManager.beginTransaction()
-            manager.replace(R.id.fragContainer,frag)
+            manager.replace(R.id.fragContainer,frag).addToBackStack("fragmnet Google")
             manager.commit()
         }
 
@@ -165,6 +165,16 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
+    }
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                Toast.makeText(this@ChatActivity,"yes",Toast.LENGTH_SHORT).show()
+                return true
+            }
+        }
+        return super.onContextItemSelected(item)
     }
     /*override fun onBackPressed() {
         super.onBackPressed()
