@@ -26,6 +26,7 @@ import android.media.RingtoneManager
 
 import android.app.NotificationManager
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.core.app.NotificationCompat
 
@@ -150,8 +151,9 @@ class ChatActivity : AppCompatActivity() {
             val messageObject = Messages(message,timeStamp , senderUid)
 
             if (message.isNotEmpty()) {
+                Log.d("tagetmessage",messageObject.message.toString() + " " + messageObject.senderId.toString() + " " + messageObject.time.toString())
                 dbReference.child("chats").child(senderRoom!!).child("messages").push()
-                    .setValue(messageObject).addOnSuccessListener {
+                    .setValue(messageObject).addOnCompleteListener {
                         dbReference.child("chats").child(recieverRoom!!).child("messages").push()
                             .setValue(messageObject)
                     }

@@ -19,7 +19,8 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/undraw_ideas_s70l" />
+            android:resource="@drawable/undraw_ideas_s70l"
+            android:value="true"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
@@ -60,6 +61,11 @@
             android:exported="true"
             android:theme="@style/Theme.Convo"
             android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".activities.SplashScreen"
+            android:exported="true"
+            android:theme="@style/Theme.Convo.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

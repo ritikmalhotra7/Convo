@@ -2,15 +2,18 @@ package com.complete.convo.actvities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.bumptech.glide.disklrucache.DiskLruCache
 import com.complete.convo.R
 import com.complete.convo.adapters.UserAdapter
@@ -26,6 +29,7 @@ import com.complete.convo.model.Messages
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,8 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     var name :String? = null
     var emailorphone :String? = null
-    val storage = FirebaseStorage.getInstance()
-    var storageRef = storage.reference
+    private lateinit var storage : FirebaseStorage
 
 
 
@@ -69,17 +72,61 @@ class MainActivity : AppCompatActivity() {
         binding.drawerlayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val b = NavHeaderBinding.inflate(layoutInflater)
+        storage = FirebaseStorage.getInstance()
+        val storagRef = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"bg")
+        val localFile = File.createTempFile("temp","jpg")
+        storagRef.getFile(localFile).addOnSuccessListener {
+            val bitMap = BitmapFactory.decodeFile(localFile.absolutePath)
+            binding.imageview.setImageBitmap(bitMap)
+        }
+
+        val navi = binding.navView
+        val header = navi.getHeaderView(0)
+
+
+
+
+
+
+
 
         dbReference.child("user").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
                 for(snap in snapshot.children){
                     val currentUser = snap.getValue(User::class.java)
                     val receiversuid = currentUser!!.uid
                     val senderUid = mAuth.currentUser!!.uid
                     val senderRoom = senderUid+receiversuid
+                    if(currentUser.uid == mAuth.currentUser?.uid){
+                        name = currentUser!!.name.toString()
+                        if(currentUser.email != null){
+                            emailorphone = currentUser.email.toString()
+                        }else{
+                            emailorphone = currentUser.phoneNumber.toString()
+                        }
+                        header.findViewById<TextView>(R.id.tv_username).setText(name)
+                        header.findViewById<TextView>(R.id.emailorphone).setText(emailorphone)
 
+                    }
+                    dbReference.child("chats").child(senderRoom).addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.childrenCount>0){
+                                if(userList.contains(currentUser)){
 
+                                }else{
+                                    userList.add(currentUser)
+                                    adapter.notifyDataSetChanged()
+                                    Log.d("tagetsnapshots",currentUser.name.toString())
+                                }
+
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
                 }
 
             }
@@ -89,89 +136,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
-
-
-
-
-
-        /*dbReference.child("user").addValueEventListener(object: ValueEventListener {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onDataChange(snapshot: DataSnapshot) {
-                    userList.clear()
-                val senderUid = mAuth.currentUser?.uid
-                for(snap in snapshot.children){
-                    Log.d("tagetsnaps",snap.exists().toString())
-                    val currentUser = snap.getValue(User::class.java)
-                    val recieverUid = currentUser?.uid
-                    val senderRoom = recieverUid + senderUid
-                    if(mAuth.currentUser?.uid != currentUser?.uid){
-                        Log.d("tagetsnap",snap.exists().toString())
-                        dbReference.child("chats").child(senderRoom).addValueEventListener(object:ValueEventListener{
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                if(snapshot.exists()){
-                                    Log.d("taget",snapshot.exists().toString())
-                                    userList.add(currentUser!!)
-                                    Log.d("tagetuser",userList.toString())
-                                    Log.d("tagetuser",currentUser.name.toString())
-                                }
-                            }
-                            override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
-                            }
-                        })
-
-                    }
-                }
-                adapter.notifyDataSetChanged()
-            }
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })*/
-        /*dbReference.child("user").addValueEventListener(object: ValueEventListener {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onDataChange(snapshot: DataSnapshot) {
-                userList.clear()
-                for(snap in snapshot.children){
-                    val currentUser = snap.getValue(User::class.java)
-                    var hasChat = false
-                    try {
-                        val receiversuid = currentUser!!.uid
-                        val senderUid = mAuth.currentUser!!.uid
-                        val senderRoom = senderUid+receiversuid
-
-                        dbReference.child("chats").child(senderRoom).addValueEventListener(object : ValueEventListener{
-                            override fun onDataChange(snapshots: DataSnapshot) {
-                                Log.d("tagets",snapshots.toString())
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
-                            }
-                        })
-                    }catch (e:IllegalAccessException){
-
-                    }
-                    if(mAuth.currentUser?.uid != currentUser?.uid && hasChat){
-                        userList.add(currentUser!!)
-                        Log.d("tagethaschat",hasChat.toString())
-                    }
-                }
-                adapter.notifyDataSetChanged()
-            }
-            override fun onCancelled(error: DatabaseError) {
-            }
-        }
-        )*/
         binding.fab.setOnClickListener {
             val intent = Intent(this, AllUsers::class.java)
             startActivity(intent)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.navView.setNavigationItemSelectedListener{
-
             when(it.itemId){
                 R.id.logout ->{
                     mAuth.signOut()
@@ -184,31 +154,9 @@ class MainActivity : AppCompatActivity() {
                     val intent=Intent(this, ContactUs::class.java)
                     startActivity(intent)
                 }
-                /*R.id.wallpaper ->{
-                   if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                        == PackageManager.PERMISSION_GRANTED
-                    ) {
-                        showImageChooser()
-                        val b = NavHeaderBinding.inflate(layoutInflater)
-                        b.yourpicture.setImageURI(ur)
-                    } else {
-
-                        ActivityCompat.requestPermissions(
-                            this,
-                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                            READ_STORAGE_PERMISSION_CODE
-                        )
-                    }
-
-                }*/
-
             }
             true
         }
-       /* val preferences: SharedPreferences = getPreferences(Context.MODE_PRIVATE) ?: return
-        val mImageUri = preferences.getString("imageuri", null)
-        val url = Uri.parse(mImageUri)*/
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -220,9 +168,11 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == RESULT_OK && requestCode == pickImage) {
             if(data != null){
                 imageUri = data.data
-                storageRef.child(mAuth.currentUser!!.uid.toString())
-                    .putFile(data.data!!).addOnSuccessListener {
-                        Toast.makeText(this,"saved",Toast.LENGTH_SHORT).show()
+                storage = FirebaseStorage.getInstance()
+                val storageRefer = storage.reference
+                storageRefer.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"bg")
+                    .putFile(data.data!!).addOnCompleteListener {
+                        Toast.makeText(this,"saved",Toast.LENGTH_LONG).show()
                     }
                 binding.imageview.setImageURI(imageUri)
             }else{
