@@ -30,5 +30,11 @@ class ProfileActivity : AppCompatActivity() {
             finish()
             startActivity(intent)
         }
+        val actionBar = supportActionBar
+        // showing the back button in action bar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
+        actionBar?.setHomeAsUpIndicator(R.drawable.back_24px)
     }
 }

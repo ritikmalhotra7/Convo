@@ -46,7 +46,7 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <EditText
+    <!--<EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,11 +55,12 @@
         android:layout_marginStart="55dp"
         android:layout_marginTop="10sp"
         android:visibility="gone"
+        android:id="@+id/editnameProfile"
         android:drawableEnd="@drawable/save_30px"
         android:padding="10dp"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@id/colayout"/>
-    <TextView
+        app:layout_constraintTop_toBottomOf="@id/colayout"/>-->
+    <!--<TextView
         android:id="@+id/nameprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,8 +73,22 @@
         android:drawableLeft="@drawable/pencil_24px"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/colayout" />
-
+        app:layout_constraintTop_toBottomOf="@id/colayout" />-->
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/nameprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:paddingStart="20sp"
+        android:text="Ritik Malhotra"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:visibility="visible"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/pencil_24px"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/colayout"/>
     <TextView
         android:id="@+id/detailprofile"
         android:layout_width="match_parent"
@@ -83,6 +98,7 @@
         android:textAllCaps="true"
         android:textStyle="italic"
         android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameprofile" />

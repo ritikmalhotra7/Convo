@@ -2,6 +2,7 @@ package com.complete.convo.actvities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,15 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.disklrucache.DiskLruCache
 import com.complete.convo.R
+import com.complete.convo.activities.*
 import com.complete.convo.adapters.UserAdapter
 import com.complete.convo.databinding.ActivityMainBinding
 import com.complete.convo.databinding.NavHeaderBinding
 import com.complete.convo.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.complete.convo.activities.AllUsers
-import com.complete.convo.activities.ContactUs
-import com.complete.convo.activities.LoginActivity
 import com.complete.convo.model.Messages
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
@@ -88,14 +88,31 @@ class MainActivity : AppCompatActivity() {
         storage = FirebaseStorage.getInstance()
         val storagRef = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"bg")
         val localFile = File.createTempFile("temp","jpg")
+        var bitMap : Bitmap? = null
         storagRef.getFile(localFile).addOnSuccessListener {
-            val bitMap = BitmapFactory.decodeFile(localFile.absolutePath)
+            bitMap = BitmapFactory.decodeFile(localFile.absolutePath)
             binding.imageview.setImageBitmap(bitMap)
             binding.progress.visibility = View.INVISIBLE
+        }
+        val storagRefere = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"profile")
+        val localFiles = File.createTempFile("temp","jpg")
+        var bitMaps : Bitmap? = null
+        storagRefere.getFile(localFiles).addOnSuccessListener {
+            bitMaps = BitmapFactory.decodeFile(localFiles.absolutePath)
         }
 
         val navi = binding.navView
         val header = navi.getHeaderView(0)
+        header.findViewById<ImageView>(R.id.yourpicture).setImageBitmap(bitMaps)
+        header.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+
+            intent.putExtra("name",name)
+            intent.putExtra("emailorphone",emailorphone)
+            intent.putExtra("uid",mAuth.currentUser!!.uid)
+            finish()
+            startActivity(intent)
+        }
 
 
 
@@ -168,6 +185,15 @@ class MainActivity : AppCompatActivity() {
                     val intent=Intent(this, ContactUs::class.java)
                     startActivity(intent)
                 }
+                R.id.myProfile ->{
+                    val intent = Intent(this, EditProfileActivity::class.java)
+
+                    intent.putExtra("name",name)
+                    intent.putExtra("emailorphone",emailorphone)
+                    intent.putExtra("uid",mAuth.currentUser!!.uid)
+                    finish()
+                    startActivity(intent)
+                }
             }
             true
         }
@@ -201,13 +227,13 @@ class MainActivity : AppCompatActivity() {
         }
         when(item.itemId) {
             R.id.wallpaper ->{
-                val galleryIntent = Intent(Intent.ACTION_PICK)
-                galleryIntent.type = "image/*, video/*"
-                if (galleryIntent.resolveActivity(packageManager) != null) {
-                    startActivityForResult(
-                        Intent.createChooser(galleryIntent, "Select File"),pickImage
-                    )
-                }
+                    val galleryIntent = Intent(Intent.ACTION_PICK)
+                    galleryIntent.type = "image/*, video/*"
+                    if (galleryIntent.resolveActivity(packageManager) != null) {
+                        startActivityForResult(
+                            Intent.createChooser(galleryIntent, "Select File"),pickImage
+                        )
+                    }
 
             }
 

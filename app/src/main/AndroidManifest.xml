@@ -18,10 +18,12 @@
         android:theme="@style/Theme.Convo">
         <activity
             android:name=".activities.EditProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".actvities.MainActivity"/>
         <activity
             android:name=".activities.ProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".actvities.MainActivity"/>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

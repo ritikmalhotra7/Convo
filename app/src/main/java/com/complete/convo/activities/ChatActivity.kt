@@ -72,7 +72,7 @@ class ChatActivity : AppCompatActivity() {
         recieverRoom = senderUid + recieverUid
         val emailorphone = intent.getStringExtra("emailorphone")
 
-        var actionBar = supportActionBar
+        val actionBar = supportActionBar
         // showing the back button in action bar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
