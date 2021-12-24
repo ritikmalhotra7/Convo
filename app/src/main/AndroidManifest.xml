@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,20 +16,26 @@
         android:roundIcon="@drawable/undraw_ideas_s70l"
         android:supportsRtl="true"
         android:theme="@style/Theme.Convo">
+        <activity
+            android:name=".activities.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/undraw_ideas_s70l"
-            android:value="true"/>
-
+            android:value="true" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
+
         <activity
             android:name=".activities.ContactUs"
             android:exported="true"
             android:parentActivityName=".actvities.MainActivity"
-            android:theme="@style/Theme.Convo"/>
+            android:theme="@style/Theme.Convo" />
         <activity
             android:name=".activities.PhoneNewUser"
             android:exported="true"
@@ -48,8 +54,8 @@
         <activity
             android:name=".activities.ChatActivity"
             android:exported="true"
-            android:theme="@style/Theme.Convo"
             android:parentActivityName=".actvities.MainActivity"
+            android:theme="@style/Theme.Convo"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SignupActivity"
@@ -60,8 +66,7 @@
             android:name=".activities.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.Convo"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SplashScreen"
             android:exported="true"
@@ -75,7 +80,6 @@
         <activity
             android:name=".actvities.MainActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>

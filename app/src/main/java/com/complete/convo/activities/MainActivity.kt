@@ -6,9 +6,11 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -29,7 +31,12 @@ import com.complete.convo.model.Messages
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,6 +65,12 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.progress.visibility = View.VISIBLE
+        binding.swipe.setOnRefreshListener {
+            adapter.notifyDataSetChanged()
+            Handler().postDelayed({ binding.swipe.isRefreshing = false }, 2000)
+        }
+
         mAuth = FirebaseAuth.getInstance()
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
@@ -78,6 +91,7 @@ class MainActivity : AppCompatActivity() {
         storagRef.getFile(localFile).addOnSuccessListener {
             val bitMap = BitmapFactory.decodeFile(localFile.absolutePath)
             binding.imageview.setImageBitmap(bitMap)
+            binding.progress.visibility = View.INVISIBLE
         }
 
         val navi = binding.navView

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
 import com.complete.convo.activities.ChatActivity
+import com.complete.convo.activities.ProfileActivity
 
 import com.complete.convo.databinding.UserLayoutBinding
 import com.complete.convo.model.User
@@ -20,6 +21,7 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
     class ViewHolder(binding: UserLayoutBinding/*view:View*/) : RecyclerView.ViewHolder(binding.root) {
         val textName = binding.name
         val emailorphn = binding.emailorphone
+        val profilepic = binding.profilePic
 
         val v = binding.root
     }
@@ -37,6 +39,19 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
             if (it.isLowerCase()) it.titlecase(
                 Locale.getDefault()
             ) else it.toString()
+        }
+        holder.profilepic.setOnClickListener {
+            val intent = Intent(context,ProfileActivity::class.java)
+
+            intent.putExtra("name", currentUser.name)
+            if(currentUser.email != null){
+                intent.putExtra("emailorphone",currentUser.email)
+            }else{
+                intent.putExtra("emailorphone",currentUser.phoneNumber)
+            }
+            intent.putExtra("uid", currentUser.uid)
+
+            context.startActivity(intent)
         }
 
 
