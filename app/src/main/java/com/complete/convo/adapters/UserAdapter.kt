@@ -15,7 +15,7 @@ import com.complete.convo.model.User
 import java.util.*
 import kotlin.collections.ArrayList
 
-class UserAdapter (val context : Context, private val userList : ArrayList<User>) :
+class UserAdapter (val context : Context, private var userList : ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     class ViewHolder(binding: UserLayoutBinding/*view:View*/) : RecyclerView.ViewHolder(binding.root) {
@@ -77,5 +77,13 @@ class UserAdapter (val context : Context, private val userList : ArrayList<User>
 
     override fun getItemCount(): Int {
         return userList.size
+    }
+    fun filterList(filterllist: ArrayList<User>) {
+        // below line is to add our filtered
+        // list in our course array list.
+        userList = filterllist
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged()
     }
 }

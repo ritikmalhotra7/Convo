@@ -1,6 +1,7 @@
 package com.complete.convo.activities
 
 import android.annotation.SuppressLint
+import android.app.ActionBar
 
 import android.content.Intent
 import android.net.Uri
@@ -29,6 +30,8 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import androidx.core.app.NotificationCompat
+import android.view.Gravity
+import android.widget.ImageView
 
 
 class ChatActivity : AppCompatActivity() {
@@ -83,7 +86,8 @@ class ChatActivity : AppCompatActivity() {
             ) else it.toString()
         }
         actionBar?.subtitle = emailorphone.toString()
-        actionBar?.setHomeAsUpIndicator(R.drawable.back_24px)
+        actionBar?.setHomeAsUpIndicator(com.complete.convo.R.drawable.back_24px)
+        actionBar
 
         binding.recyclerView1.layoutManager = LinearLayoutManager(this)
         messageList = ArrayList()

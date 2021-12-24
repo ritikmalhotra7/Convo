@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
             binding.imageview.setImageBitmap(bitMap)
             binding.progress.visibility = View.INVISIBLE
         }
+
         val storagRefere = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"profile")
         val localFiles = File.createTempFile("temp","jpg")
         var bitMaps : Bitmap? = null
@@ -198,9 +200,45 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+    private fun filter(text: String) {
+        // creating a new array list to filter our data.
+        val filteredlist: ArrayList<User> = ArrayList()
+
+        // running a for loop to compare elements.
+        for (item in userList) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.name!!.toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            adapter.filterList(filteredlist)
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.side_menu2,menu)
+        val search = menu!!.findItem(R.id.search)
+        val searchView = search.actionView as SearchView
+        searchView.queryHint = "Search"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO()
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filter(newText!!)
+                return false
+            }
+        })
         return super.onCreateOptionsMenu(menu)
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
