@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     tools:context=".activities.LoginActivity"
     android:layout_marginBottom="30sp">
 
@@ -59,45 +58,6 @@
             android:maxLength="21" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pass"
-        android:layout_margin="20sp"
-        android:id="@+id/loginll"
-        android:orientation="horizontal"
-        android:weightSum="30">
-
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:background="@drawable/button_bg"
-            android:text="@string/log_in"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/loginPhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_weight="20"
-            android:gravity="center"
-            android:paddingVertical="10dp"
-            android:text="@string/login_via_phone_number"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/loginll"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -129,6 +89,31 @@
             android:layout_marginEnd="20sp"
             android:layout_marginStart="35dp"/>
     </LinearLayout>
+
+    <com.royrodriguez.transitionbutton.TransitionButton
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pass"
+        android:layout_marginStart="30sp"
+        android:text="Login"
+        android:textColor="@color/white"
+        app:defaultColor="@color/purple_500"
+        app:loaderColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/loginPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_below="@id/pass"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/loginButton"
+        android:gravity="center"
+        android:paddingVertical="10dp"
+        android:text="@string/login_via_phone_number"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 
 

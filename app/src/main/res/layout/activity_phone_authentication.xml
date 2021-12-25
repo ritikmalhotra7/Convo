@@ -20,8 +20,7 @@
     <ImageView
         android:id="@+id/login_image"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="250dp"
         android:background="@drawable/access"
         android:contentDescription="@string/image"/>
     <TextView
@@ -72,8 +71,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_marginTop="40sp">
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -87,10 +87,19 @@
         android:id="@+id/verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20sp"
+        android:layout_marginTop="20dp"
         android:background="#6372FF"
         android:enabled="false"
         android:text="@string/verify"
         android:textColor="#ffffff" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="resend OTP"
+        android:textSize="15dp"
+        android:id="@+id/resend"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="start"
+        />
 </LinearLayout>
 </RelativeLayout>

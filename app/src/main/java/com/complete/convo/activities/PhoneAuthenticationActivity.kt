@@ -44,6 +44,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     lateinit var storedVerificationId: String
     private lateinit var db : DatabaseReference
+    private var t :Boolean = false
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var mProgressDialog: Dialog
@@ -65,14 +66,23 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
 
         binding.otp.isEnabled = false
         binding.verify.isEnabled = false
+        binding.resend.isEnabled = false
         login.setOnClickListener {
             binding.verify.isEnabled = true
             binding.otp.isEnabled = true
             binding.loginBtn.isEnabled = false
             binding.phoneNumber.isEnabled = false
+            binding.resend.isEnabled = true
 
             login()
             showProgressDialog()
+        }
+        binding.resend.setOnClickListener {
+            binding.verify.isEnabled = true
+            binding.otp.isEnabled = true
+            binding.otp.isEnabled = false
+            binding.verify.isEnabled = false
+            binding.resend.isEnabled = false
         }
         binding.verify.setOnClickListener{
             val otp=binding.otp.text.toString().trim()
@@ -93,6 +103,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                     .currentUser?.uid)
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
+                hideProgressDialog()
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -100,9 +111,11 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 binding.otp.isEnabled = false
                 binding.loginBtn.isEnabled = true
                 binding.phoneNumber.isEnabled = true
+                binding.resend.isEnabled = true
 
                 Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()
-                Log.d("taget",e.toString())
+                Log.d("tagetfailed",e.toString())
+                hideProgressDialog()
             }
 
             override fun onCodeSent(
@@ -113,12 +126,14 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                 Log.d("TAG", "onCodeSent:$verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
+                Toast.makeText(this@PhoneAuthenticationActivity,"Code Sent",Toast.LENGTH_SHORT).show()
             }
         }
 
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        hideProgressDialog()
         showProgressDialog()
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
@@ -197,6 +212,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             binding.otp.isEnabled = false
             binding.loginBtn.isEnabled = true
             binding.phoneNumber.isEnabled = true
+            binding.resend.isEnabled = false
 
         }
     }

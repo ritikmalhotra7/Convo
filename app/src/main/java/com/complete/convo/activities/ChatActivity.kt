@@ -141,17 +141,16 @@ class ChatActivity : AppCompatActivity() {
                     am = "pm"
                 }
                  timeStamp = "$hour:0$minute $am"
-            }else{
-                if(hour == 0){
+            }else {
+                if (hour == 0) {
                     hour = 12
                 }
-                if(hour>12){
-                    hour -=12
+                if (hour > 12) {
+                    hour -= 12
                     am = "pm"
                 }
-                 timeStamp = "$hour:$minute $am"
+                timeStamp = "$hour:$minute $am"
             }
-
             val messageObject = Messages(message,timeStamp , senderUid)
 
             if (message.isNotEmpty()) {
