@@ -54,6 +54,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mAuth = FirebaseAuth.getInstance()
+        db = FirebaseDatabase.getInstance().reference
 
         val login = binding.loginBtn
 
@@ -78,10 +79,10 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             showProgressDialog()
         }
         binding.resend.setOnClickListener {
-            binding.verify.isEnabled = true
-            binding.otp.isEnabled = true
-            binding.otp.isEnabled = false
             binding.verify.isEnabled = false
+            binding.otp.isEnabled = false
+            binding.loginBtn.isEnabled = true
+            binding.phoneNumber.isEnabled = true
             binding.resend.isEnabled = false
         }
         binding.verify.setOnClickListener{
@@ -139,11 +140,26 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
 
-                    val isNew = task.result?.getAdditionalUserInfo()?.isNewUser()
+                    var isNew = 0
+                    db.child("user").addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            for(snap in snapshot.children){
+                                val currentUser = snap.getValue(User::class.java)
+                                if(mAuth.currentUser!!.uid == currentUser!!.uid){
+                                    isNew = 1
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
                     Log.d("taget", isNew.toString())
                     phone = binding.phoneNumber.text.toString().trim()
-                    if(isNew == true) {
+                    if(isNew == 0) {
                         try{
+
                             val b = DialogViewBinding.inflate(layoutInflater)
                             /*val mDialogView = LayoutInflater.from(this).inflate(b.root, null)*/
 
@@ -151,7 +167,14 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                                 .setView(b.root)
                                 .setTitle("Login Form")
                                 .setNegativeButton("Cancel"
-                                ) { dialog, which -> dialog?.cancel() }
+                                ) { dialog, which -> dialog?.cancel()
+                                    mAuth.signOut()
+                                    binding.verify.isEnabled = false
+                                    binding.otp.isEnabled = false
+                                    binding.loginBtn.isEnabled = true
+                                    binding.phoneNumber.isEnabled = true
+                                    binding.resend.isEnabled = false
+                                Toast.makeText(this,"This OTP is not valid now!", Toast.LENGTH_LONG).show()}
                                 .setPositiveButton("Continue"
                                 ) { dialog, which ->
                                     name = b.yourname.text.toString().trim()

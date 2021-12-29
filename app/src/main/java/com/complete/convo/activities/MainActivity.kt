@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@MainActivity,"makeText",Toast.LENGTH_SHORT).show()
             }
         })
 
