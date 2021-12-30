@@ -7,7 +7,6 @@
     android:background="#FFFFFF">
 
     <EditText
-
         android:id="@+id/yourname"
         android:hint="Enter your Name"
         android:layout_width="match_parent"
