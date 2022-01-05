@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.complete.convo.R
 import com.complete.convo.activities.ChatActivity
 import com.complete.convo.activities.ProfileActivity
 
@@ -69,6 +71,12 @@ class UserAdapter (val context : Context, private var userList : ArrayList<User>
             bitMaps = BitmapFactory.decodeFile(localFile.absolutePath)
         }
         holder.profilepic.setImageBitmap(bitMaps)*/
+        /*if(storagRef != null){
+            Glide.with(context).load(storagRef).into(holder.profilepic)
+        }else{
+            Glide.with(context).load(R.drawable.undraw_profile_pic_ic5t).into(holder.profilepic)
+        }
+*/
 
 
 
