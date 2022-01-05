@@ -2,6 +2,8 @@ package com.complete.convo.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
@@ -12,11 +14,15 @@ import com.complete.convo.activities.ProfileActivity
 
 import com.complete.convo.databinding.UserLayoutBinding
 import com.complete.convo.model.User
+import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
 class UserAdapter (val context : Context, private var userList : ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+
+    private lateinit var storage: FirebaseStorage
 
     class ViewHolder(binding: UserLayoutBinding/*view:View*/) : RecyclerView.ViewHolder(binding.root) {
         val textName = binding.name
@@ -53,6 +59,17 @@ class UserAdapter (val context : Context, private var userList : ArrayList<User>
 
             context.startActivity(intent)
         }
+        storage= FirebaseStorage.getInstance()
+        val uid=currentUser.uid
+
+        val storagRef = storage.reference.child(uid!!).child(uid+"profile")
+        /*val localFile = File.createTempFile("temp","jpg")
+        var bitMaps : Bitmap? = null
+        storagRef.getFile(localFile).addOnSuccessListener {
+            bitMaps = BitmapFactory.decodeFile(localFile.absolutePath)
+        }
+        holder.profilepic.setImageBitmap(bitMaps)*/
+
 
 
         holder.v.setOnClickListener {

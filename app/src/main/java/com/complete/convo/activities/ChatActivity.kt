@@ -87,7 +87,6 @@ class ChatActivity : AppCompatActivity() {
         }
         actionBar?.subtitle = emailorphone.toString()
         actionBar?.setHomeAsUpIndicator(com.complete.convo.R.drawable.back_24px)
-        actionBar
 
         binding.recyclerView1.layoutManager = LinearLayoutManager(this)
         messageList = ArrayList()
