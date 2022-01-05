@@ -26,6 +26,8 @@ class AllUsers : AppCompatActivity() {
         _binding = ActivityAllUsersBinding.inflate(layoutInflater)
         setContentView(binding.root)
         mAuth = FirebaseAuth.getInstance()
+        val actionBar = supportActionBar
+        actionBar?.title = "All Users"
         dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
@@ -46,11 +48,11 @@ class AllUsers : AppCompatActivity() {
             }
             override fun onCancelled(error: DatabaseError) {
             }
-        }
-        )
+        })
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.side_menu2,menu)
+        menuInflater.inflate(R.menu.side_menu1,menu)
         val search = menu!!.findItem(R.id.search)
         val searchView = search.actionView as SearchView
         searchView.queryHint = "Search"

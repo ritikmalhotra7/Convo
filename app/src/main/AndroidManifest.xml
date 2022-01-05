@@ -46,7 +46,7 @@
         <activity
             android:name=".activities.AllUsers"
             android:exported="true"
-            android:theme="@style/Theme.Convo.NoActionBar"
+            android:theme="@style/Theme.Convo"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.PhoneAuthenticationActivity"
