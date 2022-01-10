@@ -37,6 +37,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
+import kotlin.Comparator
 import kotlin.collections.ArrayList
 
 
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
+        /*userList.sortWith(Comparator { o1: User, o2: User ->  })*/
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)

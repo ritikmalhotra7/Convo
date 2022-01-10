@@ -6,8 +6,6 @@ import android.app.ActionBar
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,14 +25,18 @@ import android.media.RingtoneManager
 
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.util.Log
-import android.view.View
+import android.view.*
 import androidx.core.app.NotificationCompat
-import android.view.Gravity
 import android.widget.ImageView
+import com.complete.convo.databinding.ActionbarBinding
+import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 
 
 class ChatActivity : AppCompatActivity() {
+    private lateinit var storage: FirebaseStorage
     private var _binding : ActivityChatBinding? = null
     private val binding get() = _binding!!
     private var senderRoom : String? = null
@@ -76,6 +78,28 @@ class ChatActivity : AppCompatActivity() {
         val emailorphone = intent.getStringExtra("emailorphone")
 
         val actionBar = supportActionBar
+        actionBar?.setDisplayShowCustomEnabled(true)
+        /*val inf = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val v = inf.inflate(R.layout.actionbar,null)*/
+        val b = ActionbarBinding.inflate(layoutInflater)
+        b.name.text = recieversName.toString()
+        b.emailorphone.text = emailorphone.toString()
+        storage = FirebaseStorage.getInstance()
+        val storagRef = storage.reference.child(recieverUid!!).child(recieverUid+"profile")
+        val localFile = File.createTempFile("temp","jpg")
+        storagRef.getFile(localFile).addOnSuccessListener {
+            val bitMap = BitmapFactory.decodeFile(localFile.absolutePath)
+            b.profilePic.setImageBitmap(bitMap)
+        }
+        b.root.setOnClickListener {
+            val inte = Intent(this@ChatActivity,ProfileActivity::class.java)
+            inte.putExtra("name",recieversName)
+            inte.putExtra("emailorphone",emailorphone)
+            inte.putExtra("uid",recieverUid)
+            startActivity(inte)
+            finish()
+        }
+        actionBar?.setCustomView(b.root)
         // showing the back button in action bar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
@@ -86,7 +110,7 @@ class ChatActivity : AppCompatActivity() {
             ) else it.toString()
         }
         actionBar?.subtitle = emailorphone.toString()
-        actionBar?.setHomeAsUpIndicator(com.complete.convo.R.drawable.back_24px)
+        /*actionBar?.setHomeAsUpIndicator(R.drawable.back_24px)*/
         binding.recyclerView1.layoutManager = LinearLayoutManager(this)
         messageList = ArrayList()
         mAdapter = MessagesAdapter(this, messageList)
@@ -126,8 +150,13 @@ class ChatActivity : AppCompatActivity() {
         binding.send.setOnClickListener {
             val message = binding.messageBox.text.toString()
             val c = Calendar.getInstance()
+            val date = c.get(Calendar.DATE)
+            val month = c.get(Calendar.MONTH)+1
+            Log.d("m",month.toString())
+            val year = c.get(Calendar.YEAR)
             var hour = c.get(Calendar.HOUR_OF_DAY)
             val minute = c.get(Calendar.MINUTE)
+            val seconds = c.get(Calendar.SECOND)
             var timeStamp = ""
             var am = "am"
             if(minute<10 ){
@@ -149,7 +178,7 @@ class ChatActivity : AppCompatActivity() {
                 }
                 timeStamp = "$hour:$minute $am"
             }
-            val messageObject = Messages(message,timeStamp , senderUid)
+            val messageObject = Messages(message,timeStamp , senderUid,"$date/$month/$year")
 
             if (message.isNotEmpty()) {
                 Log.d("tagetmessage",messageObject.message.toString() + " " + messageObject.senderId.toString() + " " + messageObject.time.toString())
