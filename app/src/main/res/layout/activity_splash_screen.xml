@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="30sp"
             android:text="CONVO"
+            android:textColor="@color/black"
             android:textSize="40dp"
             />
 

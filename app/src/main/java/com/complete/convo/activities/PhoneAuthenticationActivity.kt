@@ -184,6 +184,7 @@ class PhoneAuthenticationActivity : AppCompatActivity() {
                                         MainActivity::class.java
                                     )
                                     startActivity(intent)
+                                    finish()
                                     Toast.makeText(
                                         this@PhoneAuthenticationActivity,
                                         "Welcome $name",

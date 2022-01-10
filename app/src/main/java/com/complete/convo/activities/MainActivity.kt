@@ -66,6 +66,8 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         binding.progress.visibility = View.VISIBLE
         binding.swipe.setOnRefreshListener {
             adapter.notifyDataSetChanged()
@@ -96,16 +98,16 @@ class MainActivity : AppCompatActivity() {
             binding.progress.visibility = View.INVISIBLE
         }
 
-        val storagRefere = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"profile")
-        val localFiles = File.createTempFile("temp","jpg")
-        var bitMaps : Bitmap? = null
-        storagRefere.getFile(localFiles).addOnSuccessListener {
-            bitMaps = BitmapFactory.decodeFile(localFiles.absolutePath)
-        }
-
         val navi = binding.navView
         val header = navi.getHeaderView(0)
-        header.findViewById<ImageView>(R.id.yourpicture).setImageBitmap(bitMaps)
+        val storagRefs = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"profile")
+        val localFiles = File.createTempFile("temp","jpg")
+        var bitMaps : Bitmap? = null
+        storagRefs.getFile(localFiles).addOnSuccessListener {
+            bitMaps = BitmapFactory.decodeFile(localFiles.absolutePath)
+            header.findViewById<ImageView>(R.id.yourpicture).setImageBitmap(bitMaps)
+        }
+
         header.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)
 

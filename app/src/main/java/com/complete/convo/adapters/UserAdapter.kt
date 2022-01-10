@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
+import android.view.View
 
 import android.view.ViewGroup
 
@@ -65,18 +66,12 @@ class UserAdapter (val context : Context, private var userList : ArrayList<User>
         val uid=currentUser.uid
 
         val storagRef = storage.reference.child(uid!!).child(uid+"profile")
-        /*val localFile = File.createTempFile("temp","jpg")
-        var bitMaps : Bitmap? = null
+        val localFile = File.createTempFile("temp","jpg")
+        var bitMap : Bitmap? = null
         storagRef.getFile(localFile).addOnSuccessListener {
-            bitMaps = BitmapFactory.decodeFile(localFile.absolutePath)
+            bitMap = BitmapFactory.decodeFile(localFile.absolutePath)
+            holder.profilepic.setImageBitmap(bitMap)
         }
-        holder.profilepic.setImageBitmap(bitMaps)*/
-        /*if(storagRef != null){
-            Glide.with(context).load(storagRef).into(holder.profilepic)
-        }else{
-            Glide.with(context).load(R.drawable.undraw_profile_pic_ic5t).into(holder.profilepic)
-        }
-*/
 
 
 
