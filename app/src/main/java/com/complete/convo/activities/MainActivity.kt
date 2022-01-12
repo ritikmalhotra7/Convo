@@ -1,6 +1,7 @@
 package com.complete.convo.actvities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -35,10 +36,14 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.File
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
+import android.os.Environment
+import java.text.SimpleDateFormat
+import android.content.SharedPreferences
+import android.util.Base64.encodeToString
+import java.io.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -71,8 +76,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.progress.visibility = View.VISIBLE
         binding.swipe.setOnRefreshListener {
-            adapter.notifyDataSetChanged()
-            Handler().postDelayed({ binding.swipe.isRefreshing = false }, 2000)
+           myOnCreate()
+            binding.swipe.isRefreshing = false
         }
 
         mAuth = FirebaseAuth.getInstance()
@@ -80,6 +85,7 @@ class MainActivity : AppCompatActivity() {
 
         userList = ArrayList()
         adapter = UserAdapter(this,userList)
+        adapter.notifyDataSetChanged()
         /*userList.sortWith(Comparator { o1: User, o2: User ->  })*/
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
@@ -127,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        dbReference.child("user").addValueEventListener(object : ValueEventListener{
+        dbReference.child("user").addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()
                 for(snap in snapshot.children){
@@ -156,7 +162,6 @@ class MainActivity : AppCompatActivity() {
                                     adapter.notifyDataSetChanged()
                                     Log.d("tagetsnapshots",currentUser.name.toString())
                                 }
-
                             }
                         }
 
@@ -164,6 +169,24 @@ class MainActivity : AppCompatActivity() {
                             TODO("Not yet implemented")
                         }
                     })
+                   /* dbReference.child("chats").child(senderRoom).child("messages")addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.childrenCount>0){
+                                if(userList.contains(currentUser)){
+
+                                }else{
+                                    userList.add(currentUser)
+                                    adapter.notifyDataSetChanged()
+                                    Log.d("tagetsnapshots",currentUser.name.toString())
+                                }
+
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })*/
                 }
 
             }
@@ -172,6 +195,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity,"makeText",Toast.LENGTH_SHORT).show()
             }
         })
+        adapter.notifyDataSetChanged()
 
         binding.fab.setOnClickListener {
             val intent = Intent(this, AllUsers::class.java)
@@ -204,6 +228,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
     private fun filter(text: String) {
         // creating a new array list to filter our data.
         val filteredlist: ArrayList<User> = ArrayList()
@@ -225,6 +250,155 @@ class MainActivity : AppCompatActivity() {
             // at last we are passing that filtered
             // list to our adapter class.
             adapter.filterList(filteredlist)
+        }
+    }
+    fun myOnCreate(){
+        mAuth = FirebaseAuth.getInstance()
+        dbReference = FirebaseDatabase.getInstance("https://convo-8ee5b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+
+        userList = ArrayList()
+        adapter = UserAdapter(this,userList)
+        adapter.notifyDataSetChanged()
+        /*userList.sortWith(Comparator { o1: User, o2: User ->  })*/
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.setHasFixedSize(true)
+
+
+        toggle = ActionBarDrawerToggle(this,binding.drawerlayout,R.string.open,R.string.close)
+        binding.drawerlayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        storage = FirebaseStorage.getInstance()
+        val storagRef = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"bg")
+        val localFile = File.createTempFile("temp","jpg")
+        var bitMap : Bitmap? = null
+        storagRef.getFile(localFile).addOnSuccessListener {
+            bitMap = BitmapFactory.decodeFile(localFile.absolutePath)
+            binding.imageview.setImageBitmap(bitMap)
+            binding.progress.visibility = View.INVISIBLE
+        }
+
+        val navi = binding.navView
+        val header = navi.getHeaderView(0)
+        val storagRefs = storage.reference.child(mAuth.currentUser!!.uid).child(mAuth.currentUser!!.uid+"profile")
+        val localFiles = File.createTempFile("temp","jpg")
+        var bitMaps : Bitmap? = null
+        storagRefs.getFile(localFiles).addOnSuccessListener {
+            bitMaps = BitmapFactory.decodeFile(localFiles.absolutePath)
+            header.findViewById<ImageView>(R.id.yourpicture).setImageBitmap(bitMaps)
+        }
+
+        header.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
+
+            intent.putExtra("name",name)
+            intent.putExtra("emailorphone",emailorphone)
+            intent.putExtra("uid",mAuth.currentUser!!.uid)
+            finish()
+            startActivity(intent)
+        }
+
+
+
+
+
+
+
+
+        dbReference.child("user").addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                for(snap in snapshot.children){
+                    val currentUser = snap.getValue(User::class.java)
+                    val receiversuid = currentUser!!.uid
+                    val senderUid = mAuth.currentUser!!.uid
+                    val senderRoom = senderUid+receiversuid
+                    if(currentUser.uid == mAuth.currentUser?.uid){
+                        name = currentUser!!.name.toString()
+                        if(currentUser.email != null){
+                            emailorphone = currentUser.email.toString()
+                        }else{
+                            emailorphone = currentUser.phoneNumber.toString()
+                        }
+                        header.findViewById<TextView>(R.id.tv_username).setText(name)
+                        header.findViewById<TextView>(R.id.emailorphone).setText(emailorphone)
+
+                    }
+                    dbReference.child("chats").child(senderRoom).addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.childrenCount>0){
+                                if(userList.contains(currentUser)){
+
+                                }else{
+                                    userList.add(currentUser)
+                                    adapter.notifyDataSetChanged()
+                                    Log.d("tagetsnapshots",currentUser.name.toString())
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                    /* dbReference.child("chats").child(senderRoom).child("messages")addValueEventListener(object : ValueEventListener{
+                         override fun onDataChange(snapshot: DataSnapshot) {
+                             if(snapshot.childrenCount>0){
+                                 if(userList.contains(currentUser)){
+
+                                 }else{
+                                     userList.add(currentUser)
+                                     adapter.notifyDataSetChanged()
+                                     Log.d("tagetsnapshots",currentUser.name.toString())
+                                 }
+
+                             }
+                         }
+
+                         override fun onCancelled(error: DatabaseError) {
+                             TODO("Not yet implemented")
+                         }
+                     })*/
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@MainActivity,"makeText",Toast.LENGTH_SHORT).show()
+            }
+        })
+        adapter.notifyDataSetChanged()
+
+        binding.fab.setOnClickListener {
+            val intent = Intent(this, AllUsers::class.java)
+            startActivity(intent)
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.navView.setNavigationItemSelectedListener{
+            when(it.itemId){
+                R.id.logout ->{
+                    mAuth.signOut()
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    finish()
+                    mAuth.signOut()
+                    startActivity(intent)
+                }
+                R.id.contactus->{
+                    val intent=Intent(this, ContactUs::class.java)
+                    startActivity(intent)
+                }
+                R.id.myProfile ->{
+                    val intent = Intent(this, EditProfileActivity::class.java)
+
+                    intent.putExtra("name",name)
+                    intent.putExtra("emailorphone",emailorphone)
+                    intent.putExtra("uid",mAuth.currentUser!!.uid)
+                    finish()
+                    startActivity(intent)
+                }
+            }
+            true
         }
     }
 

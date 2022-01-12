@@ -30,12 +30,25 @@ import android.util.Log
 import android.view.*
 import androidx.core.app.NotificationCompat
 import android.widget.ImageView
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.disklrucache.DiskLruCache
 import com.complete.convo.databinding.ActionbarBinding
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
+import java.io.UnsupportedEncodingException
+import java.nio.charset.Charset
+import java.security.InvalidKeyException
+import java.security.NoSuchAlgorithmException
+import javax.crypto.BadPaddingException
+import javax.crypto.Cipher
+import javax.crypto.IllegalBlockSizeException
+import javax.crypto.NoSuchPaddingException
+import javax.crypto.spec.SecretKeySpec
 
 
 class ChatActivity : AppCompatActivity() {
+    private var encryptionKey = byteArrayOf(9,115,51,86,105,4,-31,-23,-68,88,17,20,3,-105,119,-53) ;
     private lateinit var storage: FirebaseStorage
     private var _binding : ActivityChatBinding? = null
     private val binding get() = _binding!!
@@ -44,6 +57,10 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var dbReference : DatabaseReference
     private lateinit var mAdapter : MessagesAdapter
     private lateinit var messageList : ArrayList<Messages>
+
+    private lateinit var cipher : Cipher
+    private lateinit var decipher : Cipher
+    private lateinit var secretKey : SecretKeySpec
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -60,6 +77,18 @@ class ChatActivity : AppCompatActivity() {
         val recieversName = intent.getStringExtra("name")
         val recieverUid = intent.getStringExtra("uid")
         val senderUid = FirebaseAuth.getInstance().currentUser?.uid!!
+
+        //encryption
+
+        try{
+            cipher = Cipher.getInstance("AES")
+            decipher = Cipher.getInstance("AES")
+        }catch(e:NoSuchAlgorithmException){
+            e.printStackTrace()
+        }catch(e:NoSuchPaddingException){
+            e.printStackTrace()
+        }
+        secretKey = SecretKeySpec(encryptionKey,"AES")
 
 
 
@@ -83,7 +112,6 @@ class ChatActivity : AppCompatActivity() {
         val v = inf.inflate(R.layout.actionbar,null)*/
         val b = ActionbarBinding.inflate(layoutInflater)
         b.name.text = recieversName.toString()
-        b.emailorphone.text = emailorphone.toString()
         storage = FirebaseStorage.getInstance()
         val storagRef = storage.reference.child(recieverUid!!).child(recieverUid+"profile")
         val localFile = File.createTempFile("temp","jpg")
@@ -116,7 +144,68 @@ class ChatActivity : AppCompatActivity() {
         mAdapter = MessagesAdapter(this, messageList)
         binding.recyclerView1.adapter = mAdapter
         mAdapter.notifyDataSetChanged()
+        /*var items = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                TODO("Not yet implemented")
+            }
 
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val msg = messageList.elementAt(viewHolder.adapterPosition)
+                dbReference.child("chats").child(senderRoom.toString()).child("messages").addValueEventListener(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        for(snap in snapshot.children){
+                            val currentMessage = snap.getValue(Messages::class.java)
+                            if(currentMessage!!.message == msg.message
+                                && currentMessage!!.senderId == msg.senderId
+                                && currentMessage!!.date == msg.date
+                                && currentMessage!!.time == msg.time){
+                                    Log.d("taget_sender_room",senderRoom.toString())
+
+                                dbReference.child("chats").child(senderRoom.toString()).child("messages").child(snap.key.toString()).removeValue().addOnCompleteListener {
+                                    dbReference.child("chats").child(recieverRoom.toString()).child("messages").addValueEventListener(object : ValueEventListener{
+                                        override fun onDataChange(snapshot2: DataSnapshot) {
+                                            for (snap2 in snapshot2.children) {
+                                                val currentMessage2 =
+                                                    snap.getValue(Messages::class.java)
+                                                if (currentMessage2!!.message == msg.message
+                                                    && currentMessage2!!.senderId == msg.senderId
+                                                    && currentMessage2!!.date == msg.date
+                                                    && currentMessage2!!.time == msg.time
+                                                ) {
+                                                    dbReference.child("chats")
+                                                        .child(recieverRoom.toString())
+                                                        .child("messages")
+                                                        .child(snap2.key.toString()).removeValue()
+                                                }
+                                            }
+                                        }
+                                        override fun onCancelled(error: DatabaseError) {
+                                            TODO("Not yet implemented")
+                                        }
+                                    })
+
+                                }
+                                    Log.d("taget_key",snap.key.toString())
+                                Log.d("taget_value",snap.value.toString())
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+                })
+            }
+
+        }
+        val item = ItemTouchHelper(items)
+        item.attachToRecyclerView(binding.recyclerView1)
+*/
 
         dbReference.child("chats").child(senderRoom!!).child("messages")
             .addValueEventListener(object : ValueEventListener {
@@ -212,4 +301,55 @@ class ChatActivity : AppCompatActivity() {
         super.onBackPressed()
         finish()
     }*/
+
+    private fun AESEncryptionMethod( message : Messages): Messages {
+        val stringByte = byteArrayOf(message.message!!.toByte())
+        var encryptedByte = byteArrayOf()
+        try{
+          cipher.init(Cipher.ENCRYPT_MODE,secretKey)
+            encryptedByte = cipher.doFinal(stringByte)
+        }catch(e:InvalidKeyException){
+            e.printStackTrace()
+        }catch(e:BadPaddingException){
+            e.printStackTrace()
+        }catch(e:IllegalBlockSizeException){
+            e.printStackTrace()
+        }
+        var returnString:String? = null
+        var charset : Charset = charset("ISO-8859-1")
+        try{
+            returnString =  String(encryptedByte,charset)
+        }catch(e:UnsupportedEncodingException){
+            e.printStackTrace()
+        }
+        return Messages(
+            returnString.toString(), message.time.toString(), message.senderId.toString(),
+            message.date.toString()
+        )
+    }
+    private fun AESDecryptionMethod(message : Messages): Messages {
+        val stringByte = byteArrayOf(message.message!!.toByte())
+        var encryptedByte = byteArrayOf()
+        try{
+            decipher.init(Cipher.DECRYPT_MODE,secretKey)
+            encryptedByte = cipher.doFinal(stringByte)
+        }catch(e:InvalidKeyException){
+            e.printStackTrace()
+        }catch(e:BadPaddingException){
+            e.printStackTrace()
+        }catch(e:IllegalBlockSizeException){
+            e.printStackTrace()
+        }
+        var decryptedString:String? = null
+        var charset : Charset = charset("ISO-8859-1")
+        try{
+            decryptedString =  String(encryptedByte,charset)
+        }catch(e:UnsupportedEncodingException){
+            e.printStackTrace()
+        }
+        return Messages(
+            decryptedString.toString(), message.time.toString(), message.senderId.toString(),
+            message.date.toString()
+        )
+    }
 }
